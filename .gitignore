@@ -6,3 +6,5 @@
 /src/index.d.ts
 /src/index.js
 /src/index.js.map
+.idea
+dist

@@ -5,10 +5,16 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "lib": ["es2015", "dom"],
-    "rootDir": "src"
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "rootDir": "src",
+    "outDir": "dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*"
+  ]
 }

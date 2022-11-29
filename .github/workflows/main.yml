@@ -1,0 +1,36 @@
+name: Main
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    concurrency: publish
+
+    permissions:
+      contents: write
+      issues: write
+      packages: write
+
+    steps:
+      # setup
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.3
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: 'https://npm.pkg.github.com'
+          cache: pnpm
+
+      # publish
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

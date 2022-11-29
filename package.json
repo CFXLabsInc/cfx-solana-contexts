@@ -1,16 +1,31 @@
 {
-  "name": "cfx-solana-contexts",
+  "name": "@cfxlabsinc/solana-contexts",
   "version": "1.0.0",
+  "description": "Coinfx Solana Contexts",
+  "author": "coinfx",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CFXLabsInc/cfx-solana-contexts.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "config"
   ],
-  "license": "MIT",
   "scripts": {
-    "build": "yarn run clean; tsc",
-    "prepare": "npm run build",
-    "clean": "rm -rf dist"
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "release": "semantic-release"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.3.6",
+    "@solana/web3.js": "^1.67.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.45.0",
