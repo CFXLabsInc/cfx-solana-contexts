@@ -1,0 +1,23 @@
+{
+  "name": "cfx-solana-contexts",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn run clean; tsc",
+    "prepare": "npm run build",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "eslint-plugin-node": "^11.1.0",
+    "semantic-release": "^19.0.5",
+    "typescript": "^4.9.3"
+  }
+}
