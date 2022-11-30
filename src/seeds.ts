@@ -1,3 +1,9 @@
+export const RiskManager = "risk_mg";
+
+export const UserPermissions = "access_control";
+
+export const SharedDank = "shared_dank";
+
 export enum ProgramToken {
   DANK = "dank_mint",
   CFX = "cfx_mint",

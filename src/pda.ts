@@ -1,17 +1,16 @@
 import { PublicKey } from "@solana/web3.js";
-import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
-import { RiskManagerSeed } from "./constants";
+import { ProgramAuction, ProgramOracleManager, ProgramToken, UserPermissions, RiskManager, SharedDank } from "./seeds";
 
 export const coinfxManager = async ( ccy: string, cfxProgram: PublicKey): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy], cfxProgram)
 };
 
 export const riskManager = async (ccy: string, cfxProgram: PublicKey): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, RiskManagerSeed], cfxProgram)
+  return deriveAddressFromSeeds([ccy, RiskManager], cfxProgram)
 }
 
 export const userPermissions = async (cfxProgram: PublicKey, grantee: PublicKey): Promise<PublicKey> => {
-  return deriveAddressFromSeeds(["access_control", grantee.toBase58()], cfxProgram)
+  return deriveAddressFromSeeds([UserPermissions, grantee.toBase58()], cfxProgram)
 }
 
 export const usdxUsdOracleManager = async (ccy: string, cfxProgram: PublicKey): Promise<PublicKey> => {
@@ -47,17 +46,16 @@ export const cfxMint = async (ccy: string, cfxProgram: PublicKey): Promise<Publi
 }
 
 export const dankMint = async (ccy: string, cfxProgram: PublicKey, sharedDank: boolean): Promise<PublicKey> => {
-  const conditionalDankSeed = sharedDank ? "shared_dank" : ccy;
+  const conditionalDankSeed = sharedDank ? SharedDank : ccy;
   return deriveAddressFromSeeds([conditionalDankSeed, ProgramToken.DANK], cfxProgram)
 }
 
 export const dankMintAuthority = async (ccy: string, cfxProgram: PublicKey, sharedDank: boolean): Promise<PublicKey> => {
-  const conditionalDankSeed = sharedDank ? "shared_dank" : ccy;
+  const conditionalDankSeed = sharedDank ? SharedDank : ccy;
   
-  // If dank is per currency, this will be the coinfxManager address
+  // If dank is not shared, this will be the coinfxManager address
   return deriveAddressFromSeeds([conditionalDankSeed], cfxProgram)
 }
-
 
 const deriveAddressFromSeeds = async (seeds: string[], program: PublicKey): Promise<PublicKey> => {
   const seedBuffers  = seeds.map((seed) => Buffer.from(seed));

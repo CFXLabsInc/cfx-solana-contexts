@@ -1,7 +1,5 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
-import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
-import { RiskManagerSeed } from "./constants";
 import { CoinFxContext, Config, Env } from "./types";
 import { decodeObjectToPubkeys } from "./utils";
 import * as Pda from "./pda";
