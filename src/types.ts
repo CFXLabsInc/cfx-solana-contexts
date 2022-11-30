@@ -41,38 +41,37 @@ export interface CoinFxContext
   usdxUsdOracleManager: UsdxUsdOracleManager;
   fxUsdOracleManager: FxUsdOracleManager;
   solUsdOracleManager: SolUsdOracleManager;
-  // usdxCfxSwap: UsdxCfxSwap;
-  // usdxDankSwap: UsdxDankSwap;
-  // userPermissions: PublicKey;
+  cpammFactory: PublicKey;
+  cpammFactoryBump: number;
+  usdxCfxSwap: UsdxCfxSwap;
+  usdxDankSwap: UsdxDankSwap;
 }
 
 export interface UsdxCfxSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
+  swapBump: number;
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-    fees: PublicKey
   },
   cfxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-    fees: PublicKey
   }
 }
 
 export interface UsdxDankSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
+  swapBump: number
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-    fees: PublicKey
   },
   dankInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-    fees: PublicKey
   }
 }
 

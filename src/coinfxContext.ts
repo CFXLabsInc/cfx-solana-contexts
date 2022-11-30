@@ -1,7 +1,7 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
 import { CoinFxContext, Config, Env } from "./types";
-import { decodeObjectToPubkeys } from "./utils";
+import { decodeObjectToPubkeys, sortByPubkey } from "./utils";
 import * as Pda from "./pda";
 
 import devConfig = require("./config/dev.json");
@@ -35,8 +35,11 @@ export class CoinfxContext {
       sharedOracleAccounts,
     } = this.config;
 
+    // CFX PDA's
+    
     const coinfxManager = await Pda.coinfxManager(ccy, cfxProgram);
     const riskManager = await Pda.riskManager(ccy, cfxProgram);
+    const userPermissions = await Pda.managerUserPermissions(ccy, adminPubkey, cfxProgram);
     const usdxUsdOracleManager = await Pda.usdxUsdOracleManager(ccy, cfxProgram);
     const fxUsdOracleManager = await Pda.fxUsdOracleManager(ccy, cfxProgram);
     const solUsdOracleManager = await Pda.solUsdOracleManager(ccy, cfxProgram);
@@ -47,7 +50,40 @@ export class CoinfxContext {
     const cfxMint = await Pda.cfxMint(ccy, cfxProgram);
     const dankMint = await Pda.dankMint(ccy, cfxProgram, sharedDank);
     const dankMintAuthority = await Pda.dankMintAuthority(ccy, cfxProgram, sharedDank);
-    const userPermissions = await Pda.userPermissions(cfxProgram, adminPubkey);
+
+    // CPAMM PDA's
+
+    const [cpammFactory, cpammFactoryBump] = await Pda.cpammFactory(adminPubkey, cpammProgram);
+    const [usdxDankSwap, usdxDankSwapBump] = await Pda.swapAccount(cpammFactory, usdxMint, dankMint, cpammProgram);
+    const [usdxCfxSwap, usdxCfxSwapBump] = await Pda.swapAccount(cpammFactory, usdxMint, cfxMint, cpammProgram);
+    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(adminPubkey, usdxDankSwap, cpammProgram);
+    const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(adminPubkey, usdxCfxSwap, cpammProgram);
+
+    // AssociatedTokenAccounts
+
+    const usdxDankReserveTokenAccountUsdx = await getAssociatedTokenAddress(
+      usdxMint,
+      usdxDankSwap,
+      true
+    );
+  
+    const usdxDankReserveTokenAccountDank = await getAssociatedTokenAddress(
+      dankMint,
+      usdxDankSwap,
+      true
+    );
+
+    const usdxCfxReserveTokenAccountUsdx = await getAssociatedTokenAddress(
+      usdxMint,
+      usdxCfxSwap,
+      true
+    );
+  
+    const usdxCfxReserveTokenAccountCfx = await getAssociatedTokenAddress(
+      cfxMint,
+      usdxCfxSwap,
+      true
+    );
 
     const cfxTokenAccount = await getAssociatedTokenAddress(
       cfxMint,
@@ -100,6 +136,8 @@ export class CoinfxContext {
       usdxTokenAccount,
       dankTokenAccount,
       userPermissions,
+      cpammFactory,
+      cpammFactoryBump,
       fxUsdOracleManager: {
         oracleManager: fxUsdOracleManager,
         pythOracle: fxOracleAccounts[ccy].pyth,
@@ -115,35 +153,33 @@ export class CoinfxContext {
         pythOracle: sharedOracleAccounts["SOL"].pyth,
         switchboardAggregator: sharedOracleAccounts["SOL"].switchboard,
       },
-    };
-
-    // todo: swap
-    // const [cpammFactory] = await PublicKey.findProgramAddress(
-    //   [
-    //     Buffer.from(this.encodeString("Factory")),
-    //     authorityPk.toBuffer(),
-    //   ],
-    //   cpammProgramPk
-    // );
-
-    // const [token0, token1] = sortByPubkey(usdxMintPk, dankMint)!;
-    // const [usdxDankSwap] = await PublicKey.findProgramAddress(
-    //   [
-    //     Buffer.from(this.encodeString("SwapInfo")),
-    //     cpammFactory.toBuffer(),
-    //     token0.toBuffer(),
-    //     token1.toBuffer(),
-    //   ],
-    //   authorityPk
-    // );
-
-    // const [userPermissions] = await PublicKey.findProgramAddress(
-    //   [
-    //     Buffer.from(this.encodeString("access_control")),
-    //     authorityPk.toBuffer(),
-    //   ],
-    //   cfxProgramPk
-    // );
+      usdxDankSwap: {
+        swap: usdxDankSwap,
+        swapBump: usdxDankSwapBump,
+        userPermissions: usdxDankSwapUserPermissions,
+        usdxInfo: {
+          reserve: usdxDankReserveTokenAccountUsdx,
+          mint: usdxMint,
+        },
+        dankInfo: {
+          reserve: usdxDankReserveTokenAccountDank,
+          mint: dankMint,
+        }
+      },
+      usdxCfxSwap: {
+        swap: usdxCfxSwap,
+        swapBump: usdxCfxSwapBump,
+        userPermissions: usdxCfxSwapUserPermissions,
+        usdxInfo: {
+          reserve: usdxCfxReserveTokenAccountUsdx,
+          mint: usdxMint
+        },
+        cfxInfo: {
+          reserve: usdxCfxReserveTokenAccountCfx,
+          mint: cfxMint
+        }
+      }
+    }
   }
 
   private decodeConfig(json: { [key: string]: any }): Config {
