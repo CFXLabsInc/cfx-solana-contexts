@@ -1,10 +1,27 @@
 {
-  "env": "dev",
-  "coinfxManager": "3t41U2XXcdab8hwLyf7p3keVhU7sC6gxdBQMiNhum7wj",
-  "usdxMint": "6aj4iVXQe9RckXa1TzHKMSxUuvUmu65Q8gSRitjeJD8W",
-  "cfxProgram": "AEdtcbKYEAoJ1NQcwRjL4GA2Xh9sVHuVSYUMC5YRGUKa",
-  "cpammProgram": "9fy74asi1xE4ZMJPju45myLSakMK18PR97uGWPMUJBPr",
-  "pythProgram": "11111111111111111111111111111111",
-  "authority": "9xLqB9SMbMqwxPrm8arnc6sX49FaBsK21TLW3UoCVFEW",
-  "shareDank": false
+  "adminPubkey": 0,
+  "cpammProgramId": 0,
+  "cfxProgramId": 0,
+  "usdxMint": 0,
+  "sharedDank": true,
+  "sharedOracleAccounts": {
+    "SOL": {
+      "pyth": 0,
+      "switchboard": 0
+    },
+    "USDX": {
+      "pyth": 0,
+      "switchboard": 0
+    }
+  },
+  "fxOracleAccounts": {
+    "AUD": {
+      "pyth": 0,
+      "switchboard": 0
+    },
+    "INR": {
+      "pyth": 0,
+      "switchboard": 0
+    }
+  }
 }

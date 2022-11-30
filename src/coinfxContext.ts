@@ -1,143 +1,179 @@
-import { getAssociatedTokenAddress } from "@solana/spl-token";
+import { getAssociatedTokenAddress, thawAccountInstructionData } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
 import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
 import { RiskManagerSeed } from "./constants";
-import { CoinfxCurrencyContext, Config, EnvType } from "./types";
+import { CoinFxContext, Config, Env } from "./types";
+import { decodeObjectToPubkeys } from "./utils";
 
 import devConfig = require('./config/dev.json');
 
 export class CoinfxContext {
-  public env: EnvType
+  public env: Env
   private readonly config: Config
 
-  constructor(env: EnvType) {
+  constructor(env: Env) {
     this.env = env;
 
     if (env === 'dev') {
-      this.config = devConfig
+      this.config = this.decodeConfig(devConfig);
     } else {
       throw Error('config file not found')
     }
-  }
-
-  private encodeString(value: string): string {
-    return Buffer.from(value, 'utf-8').toString();
   }
 
   public getConfig(): Config {
     return this.config
   }
 
-  public async getCurrencyContext(ccy: string): Promise<CoinfxCurrencyContext> {
+  public async getContext(ccy: string): Promise<CoinFxContext> {
+    const {
+      adminPubkey,
+      cpammProgramId,
+      cfxProgramId,
+      usdxMint,
+      sharedDank,
+      fxOracleAccounts,
+      sharedOracleAccounts
+    } = this.config;
 
-    const cfxProgramPk = new PublicKey(this.config.cfxProgram)
-    const coinfxManagerPk = new PublicKey(this.config.coinfxManager)
-    const usdxMintPk = new PublicKey(this.config.usdxMint)
-    const authorityPk = new PublicKey(this.config.authority)
-    const cpammProgramPk = new PublicKey(this.config.cpammProgram)
-
-    const usdxVault = await getAssociatedTokenAddress(
-      usdxMintPk,
-      coinfxManagerPk,
-      true
+    const [coinfxManager] = await PublicKey.findProgramAddress(
+      [Buffer.from(ccy, "utf-8")],
+      cfxProgramId
     );
+  
     const [cfxMint] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramToken.CFX)),
-      ],
-      cfxProgramPk
+      [Buffer.from(ccy, "utf-8"), Buffer.from(ccy, "utf-8")],
+      cfxProgramId
     );
-    const cfxVault = await getAssociatedTokenAddress(
-      cfxMint,
-      coinfxManagerPk,
-      true
-    );
+  
     const [dankMint] = await PublicKey.findProgramAddress(
       [
-        this.config.shareDank ?
-          Buffer.from(this.encodeString("shared_dank"))
-          : Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramToken.DANK)),
+        sharedDank
+          ? Buffer.from("shared_dank", "utf-8")
+          : Buffer.from(ccy, "utf-8"),
+        Buffer.from(ProgramToken.DANK, "utf-8"),
       ],
-      cfxProgramPk
+      cfxProgramId
+    );
+  
+    const cfxTokenAccount = await getAssociatedTokenAddress(cfxMint, adminPubkey);
+    const usdxTokenAccount = await getAssociatedTokenAddress(
+      usdxMint,
+      adminPubkey
+    );
+    const dankTokenAccount = await getAssociatedTokenAddress(
+      dankMint,
+      adminPubkey
+    );
+  
+    const cfxVault = await getAssociatedTokenAddress(
+      cfxMint,
+      coinfxManager,
+      true
     );
     const dankVault = await getAssociatedTokenAddress(
       dankMint,
-      coinfxManagerPk,
+      coinfxManager,
       true
     );
-
-    const [cfxUsdxDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.CFXUSDX)),
-      ],
-      cfxProgramPk
+    const usdxVault = await getAssociatedTokenAddress(
+      usdxMint,
+      coinfxManager,
+      true
     );
-
+  
+    const [cfxUsdxDa] = await PublicKey.findProgramAddress(
+      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.CFXUSDX, "utf-8")],
+      cfxProgramId
+    );
     const [usdxCfxDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.USDXCFX)),
-      ],
-      cfxProgramPk
+      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.USDXCFX, "utf-8")],
+      cfxProgramId
     );
     const [dankCfxDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.DANKCFX)),
-      ],
-      cfxProgramPk
+      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.DANKCFX, "utf-8")],
+      cfxProgramId
     );
     const [usdxDankDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.USDXDANK)),
-      ],
-      cfxProgramPk
+      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.USDXDANK, "utf-8")],
+      cfxProgramId
     );
-
+  
     const [riskManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(RiskManagerSeed)),
-      ],
-      cfxProgramPk
+      [Buffer.from(ccy, "utf-8"), Buffer.from(RiskManagerSeed, "utf-8")],
+      cfxProgramId
     );
-
+  
     const [dankMintAuthority] = await PublicKey.findProgramAddress(
       [
-        this.config.shareDank ?
-          Buffer.from(this.encodeString("shared_dank"))
-          : Buffer.from(this.encodeString(ccy)),
+        sharedDank
+          ? Buffer.from("shared_dank", "utf-8")
+          : Buffer.from(ccy, "utf-8"),
       ],
-      cfxProgramPk
+      cfxProgramId
     );
-
+  
     const [usdxUsdOracleManager] = await PublicKey.findProgramAddress(
       [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramOracleManager.USDXUSD)),
+        Buffer.from(ccy, "utf-8"),
+        Buffer.from(ProgramOracleManager.USDXUSD, "utf-8"),
       ],
-      cfxProgramPk
+      cfxProgramId
     );
-
+  
     const [fxUsdOracleManager] = await PublicKey.findProgramAddress(
       [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramOracleManager.FXUSD)),
+        Buffer.from(ccy, "utf-8"),
+        Buffer.from(ProgramOracleManager.FXUSD, "utf-8"),
       ],
-      cfxProgramPk
+      cfxProgramId
     );
-
+  
     const [solUsdOracleManager] = await PublicKey.findProgramAddress(
       [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramOracleManager.SOLUSD)),
+        Buffer.from(ccy, "utf-8"),
+        Buffer.from(ProgramOracleManager.SOLUSD, "utf-8"),
       ],
-      cfxProgramPk
+      cfxProgramId
     );
+  
+    return {
+      adminPubkey,
+      cpammProgramId,
+      cfxProgramId,
+      usdxMint,
+      sharedDank,
+      coinfxManager,
+      cfxMint,
+      dankMint,
+      cfxVault,
+      dankVault,
+      usdxVault,
+      cfxUsdxDa,
+      usdxCfxDa,
+      dankCfxDa,
+      usdxDankDa,
+      riskManager,
+      dankMintAuthority,
+      cfxTokenAccount,
+      usdxTokenAccount,
+      dankTokenAccount,
+      fxUsdOracleManager: {
+        oracleManager: fxUsdOracleManager,
+        pythOracle: fxOracleAccounts[ccy].pyth,
+        switchboardAggregator: fxOracleAccounts[ccy].switchboard,
+      },
+      usdxUsdOracleManager: {
+        oracleManager: usdxUsdOracleManager,
+        pythOracle: sharedOracleAccounts["USDX"].pyth,
+        switchboardAggregator: sharedOracleAccounts["USDX"].switchboard,
+      },
+      solUsdOracleManager: {
+        oracleManager: solUsdOracleManager,
+        pythOracle: sharedOracleAccounts["SOL"].pyth,
+        switchboardAggregator: sharedOracleAccounts["SOL"].switchboard,
+      },
+    };
     // todo: oracle
 
     // todo: swap
@@ -160,47 +196,24 @@ export class CoinfxContext {
     //   authorityPk
     // );
 
-    const [userPermissions] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString("access_control")),
-        authorityPk.toBuffer(),
-      ],
-      cfxProgramPk
-    );
+    // const [userPermissions] = await PublicKey.findProgramAddress(
+    //   [
+    //     Buffer.from(this.encodeString("access_control")),
+    //     authorityPk.toBuffer(),
+    //   ],
+    //   cfxProgramPk
+    // );
+  }
 
-    return {
-      cfxProgram: this.config.cfxProgram,
-      cpammProgram: this.config.cpammProgram,
-      coinfxManager: this.config.coinfxManager,
-      userPermissions: userPermissions.toBase58(),
-      usdxMint: this.config.usdxMint,
-      usdxVault: usdxVault.toBase58(),
-      cfxMint: cfxMint.toBase58(),
-      cfxVault: cfxVault.toBase58(),
-      dankMint: dankMint.toBase58(),
-      dankVault: dankVault.toBase58(),
-      cfxUsdxDa: cfxUsdxDa.toBase58(),
-      usdxCfxDa: usdxCfxDa.toBase58(),
-      dankCfxDa: dankCfxDa.toBase58(),
-      usdxDankDa: usdxDankDa.toBase58(),
-      riskManager: riskManager.toBase58(),
-      dankMintAuthority: dankMintAuthority.toBase58(),
-      pythProgram: this.config.pythProgram,
-      fxUsdOracleManager: {
-        oracleManager: fxUsdOracleManager.toBase58(),
-        pythOracle: PublicKey.default.toBase58(), // TODO: derive oracle
-        switchboardAggregator: PublicKey.default.toBase58(),
-      },
-      usdxUsdOracleManager: {
-        oracleManager: usdxUsdOracleManager.toBase58(),
-        pythOracle: PublicKey.default.toBase58(),
-        switchboardAggregator: PublicKey.default.toBase58(),
-      },
-      solUsdOracleManager: {
-        oracleManager: solUsdOracleManager.toBase58(),
-        pythOracle: PublicKey.default.toBase58(),
-        switchboardAggregator: PublicKey.default.toBase58(),
-      },
-    }
+  private decodeConfig(json: { [key: string]: any }): Config {
+    json["adminPubkey"] = new PublicKey(json["adminPubkey"]);
+    json["cpammProgramId"] = new PublicKey(json["cpammProgramId"]);
+    json["cfxProgramId"] = new PublicKey(json["cfxProgramId"]);
+    json["usdxMint"] = new PublicKey(json["usdxMint"]);
+    json["sharedOracleAccounts"] = decodeObjectToPubkeys(
+      json["sharedOracleAccounts"]
+    );
+    json["fxOracleAccounts"] = decodeObjectToPubkeys(json["fxOracleAccounts"]);
+    return json as Config
   }
 }

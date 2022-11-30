@@ -12,3 +12,14 @@ export const sortByPubkey = (a: PublicKey, b: PublicKey) => {
     }
   }
 };
+
+export const decodeObjectToPubkeys = (json: { [key: string]: any }) => {
+  for (const [key, value] of Object.entries(json)) {
+    if (value instanceof Object) {
+      decodeObjectToPubkeys(value);
+    } else {
+      json[key] = new PublicKey(value);
+    }
+  }
+  return json
+};
