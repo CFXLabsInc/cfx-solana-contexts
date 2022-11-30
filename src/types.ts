@@ -23,13 +23,13 @@ export interface CoinfxCurrencyContext {
   usdxCfxDa: string
   dankCfxDa: string
   usdxDankDa: string
-  // todo: oracle and oracle manager
-  // usdxUsdOracleManager: UsdxUsdOracleManager
-  // fxUsdOracleManager: FxUsdOracleManager
-  // solUsdOracleManager: SolUsdOracleManager
+  usdxUsdOracleManager: UsdxUsdOracleManager
+  fxUsdOracleManager: FxUsdOracleManager
+  solUsdOracleManager: SolUsdOracleManager
   cfxProgram: string
   pythProgram: string
   cpammProgram: string
+  // TODO: add swap
   // usdxDankSwap: UsdxDankSwap
   // usdxCfxSwap: UsdxCfxSwap
   dankMintAuthority: string

@@ -1,6 +1,6 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
-import { ProgramAuction, ProgramToken } from "./enums";
+import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
 import { RiskManagerSeed } from "./constants";
 import { CoinfxCurrencyContext, Config, EnvType } from "./types";
 
@@ -115,6 +115,31 @@ export class CoinfxContext {
       cfxProgramPk
     );
 
+    const [usdxUsdOracleManager] = await PublicKey.findProgramAddress(
+      [
+        Buffer.from(this.encodeString(ccy)),
+        Buffer.from(this.encodeString(ProgramOracleManager.USDXUSD)),
+      ],
+      cfxProgramPk
+    );
+
+    const [fxUsdOracleManager] = await PublicKey.findProgramAddress(
+      [
+        Buffer.from(this.encodeString(ccy)),
+        Buffer.from(this.encodeString(ProgramOracleManager.FXUSD)),
+      ],
+      cfxProgramPk
+    );
+
+    const [solUsdOracleManager] = await PublicKey.findProgramAddress(
+      [
+        Buffer.from(this.encodeString(ccy)),
+        Buffer.from(this.encodeString(ProgramOracleManager.SOLUSD)),
+      ],
+      cfxProgramPk
+    );
+    // todo: oracle
+
     // todo: swap
     // const [cpammFactory] = await PublicKey.findProgramAddress(
     //   [
@@ -143,8 +168,6 @@ export class CoinfxContext {
       cfxProgramPk
     );
 
-    // todo: oracle and oracle manager
-
     return {
       cfxProgram: this.config.cfxProgram,
       cpammProgram: this.config.cpammProgram,
@@ -162,7 +185,22 @@ export class CoinfxContext {
       usdxDankDa: usdxDankDa.toBase58(),
       riskManager: riskManager.toBase58(),
       dankMintAuthority: dankMintAuthority.toBase58(),
-      pythProgram: this.config.pythProgram
+      pythProgram: this.config.pythProgram,
+      fxUsdOracleManager: {
+        oracleManager: fxUsdOracleManager.toBase58(),
+        pythOracle: PublicKey.default.toBase58(), // TODO: derive oracle
+        switchboardAggregator: PublicKey.default.toBase58(),
+      },
+      usdxUsdOracleManager: {
+        oracleManager: usdxUsdOracleManager.toBase58(),
+        pythOracle: PublicKey.default.toBase58(),
+        switchboardAggregator: PublicKey.default.toBase58(),
+      },
+      solUsdOracleManager: {
+        oracleManager: solUsdOracleManager.toBase58(),
+        pythOracle: PublicKey.default.toBase58(),
+        switchboardAggregator: PublicKey.default.toBase58(),
+      },
     }
   }
 }
