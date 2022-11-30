@@ -54,25 +54,25 @@ export interface UsdxCfxSwap {
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-  },
+  };
   cfxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-  }
+  };
 }
 
 export interface UsdxDankSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
-  swapBump: number
+  swapBump: number;
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-  },
+  };
   dankInfo: {
     mint: PublicKey;
     reserve: PublicKey;
-  }
+  };
 }
 
 export interface UsdxUsdOracleManager {

@@ -36,11 +36,18 @@ export class CoinfxContext {
     } = this.config;
 
     // CFX PDA's
-    
+
     const coinfxManager = await Pda.coinfxManager(ccy, cfxProgram);
     const riskManager = await Pda.riskManager(ccy, cfxProgram);
-    const userPermissions = await Pda.managerUserPermissions(ccy, adminPubkey, cfxProgram);
-    const usdxUsdOracleManager = await Pda.usdxUsdOracleManager(ccy, cfxProgram);
+    const userPermissions = await Pda.managerUserPermissions(
+      ccy,
+      adminPubkey,
+      cfxProgram
+    );
+    const usdxUsdOracleManager = await Pda.usdxUsdOracleManager(
+      ccy,
+      cfxProgram
+    );
     const fxUsdOracleManager = await Pda.fxUsdOracleManager(ccy, cfxProgram);
     const solUsdOracleManager = await Pda.solUsdOracleManager(ccy, cfxProgram);
     const cfxUsdxDa = await Pda.cfxUsdxDa(ccy, cfxProgram);
@@ -49,15 +56,40 @@ export class CoinfxContext {
     const usdxDankDa = await Pda.usdxDankDa(ccy, cfxProgram);
     const cfxMint = await Pda.cfxMint(ccy, cfxProgram);
     const dankMint = await Pda.dankMint(ccy, cfxProgram, sharedDank);
-    const dankMintAuthority = await Pda.dankMintAuthority(ccy, cfxProgram, sharedDank);
+    const dankMintAuthority = await Pda.dankMintAuthority(
+      ccy,
+      cfxProgram,
+      sharedDank
+    );
 
     // CPAMM PDA's
 
-    const [cpammFactory, cpammFactoryBump] = await Pda.cpammFactory(adminPubkey, cpammProgram);
-    const [usdxDankSwap, usdxDankSwapBump] = await Pda.swapAccount(cpammFactory, usdxMint, dankMint, cpammProgram);
-    const [usdxCfxSwap, usdxCfxSwapBump] = await Pda.swapAccount(cpammFactory, usdxMint, cfxMint, cpammProgram);
-    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(adminPubkey, usdxDankSwap, cpammProgram);
-    const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(adminPubkey, usdxCfxSwap, cpammProgram);
+    const [cpammFactory, cpammFactoryBump] = await Pda.cpammFactory(
+      adminPubkey,
+      cpammProgram
+    );
+    const [usdxDankSwap, usdxDankSwapBump] = await Pda.swapAccount(
+      cpammFactory,
+      usdxMint,
+      dankMint,
+      cpammProgram
+    );
+    const [usdxCfxSwap, usdxCfxSwapBump] = await Pda.swapAccount(
+      cpammFactory,
+      usdxMint,
+      cfxMint,
+      cpammProgram
+    );
+    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
+      adminPubkey,
+      usdxDankSwap,
+      cpammProgram
+    );
+    const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(
+      adminPubkey,
+      usdxCfxSwap,
+      cpammProgram
+    );
 
     // AssociatedTokenAccounts
 
@@ -66,7 +98,7 @@ export class CoinfxContext {
       usdxDankSwap,
       true
     );
-  
+
     const usdxDankReserveTokenAccountDank = await getAssociatedTokenAddress(
       dankMint,
       usdxDankSwap,
@@ -78,7 +110,7 @@ export class CoinfxContext {
       usdxCfxSwap,
       true
     );
-  
+
     const usdxCfxReserveTokenAccountCfx = await getAssociatedTokenAddress(
       cfxMint,
       usdxCfxSwap,
@@ -164,7 +196,7 @@ export class CoinfxContext {
         dankInfo: {
           reserve: usdxDankReserveTokenAccountDank,
           mint: dankMint,
-        }
+        },
       },
       usdxCfxSwap: {
         swap: usdxCfxSwap,
@@ -172,14 +204,14 @@ export class CoinfxContext {
         userPermissions: usdxCfxSwapUserPermissions,
         usdxInfo: {
           reserve: usdxCfxReserveTokenAccountUsdx,
-          mint: usdxMint
+          mint: usdxMint,
         },
         cfxInfo: {
           reserve: usdxCfxReserveTokenAccountCfx,
-          mint: cfxMint
-        }
-      }
-    }
+          mint: cfxMint,
+        },
+      },
+    };
   }
 
   private decodeConfig(json: { [key: string]: any }): Config {

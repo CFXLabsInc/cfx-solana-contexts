@@ -6,7 +6,7 @@ export const SharedDank = "shared_dank";
 
 export enum Cpamm {
   FACTORY = "Factory",
-  SWAPINFO = "SwapInfo"
+  SWAPINFO = "SwapInfo",
 }
 
 export enum ProgramToken {
