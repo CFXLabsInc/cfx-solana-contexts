@@ -6,13 +6,6 @@ import { CoinfxCurrencyContext, Config, EnvType } from "./types";
 
 import devConfig = require('./config/dev.json');
 
-export const coinfxManager = "3t41U2XXcdab8hwLyf7p3keVhU7sC6gxdBQMiNhum7wj";
-export const usdxMint = "6aj4iVXQe9RckXa1TzHKMSxUuvUmu65Q8gSRitjeJD8W";
-export const cfxProgram = "AEdtcbKYEAoJ1NQcwRjL4GA2Xh9sVHuVSYUMC5YRGUKa";
-export const cpammProgram = "9fy74asi1xE4ZMJPju45myLSakMK18PR97uGWPMUJBPr";
-export const authority = "9xLqB9SMbMqwxPrm8arnc6sX49FaBsK21TLW3UoCVFEW";
-export const pythProgram = "11111111111111111111111111111111";
-
 export class CoinfxContext {
   public env: EnvType
   private readonly config: Config
@@ -37,11 +30,11 @@ export class CoinfxContext {
 
   public async getCurrencyContext(ccy: string): Promise<CoinfxCurrencyContext> {
 
-    const cfxProgramPk = new PublicKey(cfxProgram)
-    const coinfxManagerPk = new PublicKey(coinfxManager)
-    const usdxMintPk = new PublicKey(usdxMint)
-    const authorityPk = new PublicKey(authority)
-    const cpammProgramPk = new PublicKey(cpammProgram)
+    const cfxProgramPk = new PublicKey(this.config.cfxProgram)
+    const coinfxManagerPk = new PublicKey(this.config.coinfxManager)
+    const usdxMintPk = new PublicKey(this.config.usdxMint)
+    const authorityPk = new PublicKey(this.config.authority)
+    const cpammProgramPk = new PublicKey(this.config.cpammProgram)
 
     const usdxVault = await getAssociatedTokenAddress(
       usdxMintPk,
@@ -149,11 +142,11 @@ export class CoinfxContext {
     // todo: oracle and oracle manager
 
     return {
-      cfxProgram: cfxProgram,
-      cpammProgram: cpammProgram,
-      coinfxManager: coinfxManager,
+      cfxProgram: this.config.cfxProgram,
+      cpammProgram: this.config.cpammProgram,
+      coinfxManager: this.config.coinfxManager,
       userPermissions: userPermissions.toBase58(),
-      usdxMint: usdxMint,
+      usdxMint: this.config.usdxMint,
       usdxVault: usdxVault.toBase58(),
       cfxMint: cfxMint.toBase58(),
       cfxVault: cfxVault.toBase58(),
@@ -165,7 +158,7 @@ export class CoinfxContext {
       usdxDankDa: usdxDankDa.toBase58(),
       riskManager: riskManager.toBase58(),
       dankMintAuthority: dankMintAuthority.toBase58(),
-      pythProgram: pythProgram
+      pythProgram: this.config.pythProgram
     }
   }
 }
