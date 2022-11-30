@@ -1,28 +1,28 @@
-import { getAssociatedTokenAddress, thawAccountInstructionData } from "@solana/spl-token";
+import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
 import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
 import { RiskManagerSeed } from "./constants";
 import { CoinFxContext, Config, Env } from "./types";
 import { decodeObjectToPubkeys } from "./utils";
 
-import devConfig = require('./config/dev.json');
+import devConfig = require("./config/dev.json");
 
 export class CoinfxContext {
-  public env: Env
-  private readonly config: Config
+  public env: Env;
+  private readonly config: Config;
 
   constructor(env: Env) {
     this.env = env;
 
-    if (env === 'dev') {
+    if (env === "dev") {
       this.config = this.decodeConfig(devConfig);
     } else {
-      throw Error('config file not found')
+      throw Error("config file not found");
     }
   }
 
   public getConfig(): Config {
-    return this.config
+    return this.config;
   }
 
   public async getContext(ccy: string): Promise<CoinFxContext> {
@@ -33,19 +33,19 @@ export class CoinfxContext {
       usdxMint,
       sharedDank,
       fxOracleAccounts,
-      sharedOracleAccounts
+      sharedOracleAccounts,
     } = this.config;
 
     const [coinfxManager] = await PublicKey.findProgramAddress(
       [Buffer.from(ccy, "utf-8")],
       cfxProgramId
     );
-  
+
     const [cfxMint] = await PublicKey.findProgramAddress(
       [Buffer.from(ccy, "utf-8"), Buffer.from(ccy, "utf-8")],
       cfxProgramId
     );
-  
+
     const [dankMint] = await PublicKey.findProgramAddress(
       [
         sharedDank
@@ -55,8 +55,11 @@ export class CoinfxContext {
       ],
       cfxProgramId
     );
-  
-    const cfxTokenAccount = await getAssociatedTokenAddress(cfxMint, adminPubkey);
+
+    const cfxTokenAccount = await getAssociatedTokenAddress(
+      cfxMint,
+      adminPubkey
+    );
     const usdxTokenAccount = await getAssociatedTokenAddress(
       usdxMint,
       adminPubkey
@@ -65,7 +68,7 @@ export class CoinfxContext {
       dankMint,
       adminPubkey
     );
-  
+
     const cfxVault = await getAssociatedTokenAddress(
       cfxMint,
       coinfxManager,
@@ -81,7 +84,7 @@ export class CoinfxContext {
       coinfxManager,
       true
     );
-  
+
     const [cfxUsdxDa] = await PublicKey.findProgramAddress(
       [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.CFXUSDX, "utf-8")],
       cfxProgramId
@@ -95,15 +98,18 @@ export class CoinfxContext {
       cfxProgramId
     );
     const [usdxDankDa] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.USDXDANK, "utf-8")],
+      [
+        Buffer.from(ccy, "utf-8"),
+        Buffer.from(ProgramAuction.USDXDANK, "utf-8"),
+      ],
       cfxProgramId
     );
-  
+
     const [riskManager] = await PublicKey.findProgramAddress(
       [Buffer.from(ccy, "utf-8"), Buffer.from(RiskManagerSeed, "utf-8")],
       cfxProgramId
     );
-  
+
     const [dankMintAuthority] = await PublicKey.findProgramAddress(
       [
         sharedDank
@@ -112,7 +118,7 @@ export class CoinfxContext {
       ],
       cfxProgramId
     );
-  
+
     const [usdxUsdOracleManager] = await PublicKey.findProgramAddress(
       [
         Buffer.from(ccy, "utf-8"),
@@ -120,7 +126,7 @@ export class CoinfxContext {
       ],
       cfxProgramId
     );
-  
+
     const [fxUsdOracleManager] = await PublicKey.findProgramAddress(
       [
         Buffer.from(ccy, "utf-8"),
@@ -128,7 +134,7 @@ export class CoinfxContext {
       ],
       cfxProgramId
     );
-  
+
     const [solUsdOracleManager] = await PublicKey.findProgramAddress(
       [
         Buffer.from(ccy, "utf-8"),
@@ -136,7 +142,7 @@ export class CoinfxContext {
       ],
       cfxProgramId
     );
-  
+
     return {
       adminPubkey,
       cpammProgramId,
@@ -214,6 +220,6 @@ export class CoinfxContext {
       json["sharedOracleAccounts"]
     );
     json["fxOracleAccounts"] = decodeObjectToPubkeys(json["fxOracleAccounts"]);
-    return json as Config
+    return json as Config;
   }
 }

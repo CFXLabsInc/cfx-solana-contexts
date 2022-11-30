@@ -21,5 +21,5 @@ export const decodeObjectToPubkeys = (json: { [key: string]: any }) => {
       json[key] = new PublicKey(value);
     }
   }
-  return json
+  return json;
 };

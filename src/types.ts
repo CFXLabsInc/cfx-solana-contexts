@@ -20,7 +20,8 @@ export interface Config {
   };
 }
 
-export interface CoinFxContext extends Omit<Config, "sharedOracleAccounts" | "fxOracleAccounts"> {
+export interface CoinFxContext
+  extends Omit<Config, "sharedOracleAccounts" | "fxOracleAccounts"> {
   coinfxManager: PublicKey;
   cfxMint: PublicKey;
   dankMint: PublicKey;
@@ -59,4 +60,4 @@ export interface SolUsdOracleManager {
   switchboardAggregator: PublicKey;
 }
 
-export type Env = "dev" | "pre-prod" | "cust-sandbox" | "prod"
+export type Env = "dev" | "pre-prod" | "cust-sandbox" | "prod";
