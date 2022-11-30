@@ -1,10 +1,4 @@
 # Project exclude paths
 /node_modules/
-/src/context.d.ts
-/src/context.js
-/src/context.js.map
-/src/index.d.ts
-/src/index.js
-/src/index.js.map
 .idea
 dist
