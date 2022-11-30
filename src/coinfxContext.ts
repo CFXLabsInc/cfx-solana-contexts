@@ -55,7 +55,9 @@ export class CoinfxContext {
     );
     const [dankMint] = await PublicKey.findProgramAddress(
       [
-        Buffer.from(this.encodeString("shared_dank")),
+        this.config.shareDank ?
+          Buffer.from(this.encodeString("shared_dank"))
+          : Buffer.from(this.encodeString(ccy)),
         Buffer.from(this.encodeString(ProgramToken.DANK)),
       ],
       cfxProgramPk
@@ -106,7 +108,9 @@ export class CoinfxContext {
 
     const [dankMintAuthority] = await PublicKey.findProgramAddress(
       [
-        Buffer.from(this.encodeString("shared_dank")),
+        this.config.shareDank ?
+          Buffer.from(this.encodeString("shared_dank"))
+          : Buffer.from(this.encodeString(ccy)),
       ],
       cfxProgramPk
     );

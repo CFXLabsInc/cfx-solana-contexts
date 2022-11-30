@@ -8,6 +8,7 @@ export interface Config {
   cpammProgram: string,
   pythProgram: string,
   authority: string,
+  shareDank: boolean
 }
 
 export interface CoinfxCurrencyContext {
