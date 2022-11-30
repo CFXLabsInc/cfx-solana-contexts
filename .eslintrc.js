@@ -1,13 +1,22 @@
 module.exports = {
-    root: true,
-    parser: '@typescript-eslint/parser',
-    plugins: [
-        '@typescript-eslint',
-    ],
-    extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        "plugin:node/recommended",
-        "prettier",
-    ],
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        ecmaVersion: "latest", // Allows the use of modern ECMAScript features
+        sourceType: "module", // Allows for the use of imports
+    },
+    extends: ["plugin:@typescript-eslint/recommended"], // Uses the linting rules from @typescript-eslint/eslint-plugin
+    env: {
+        node: true, // Enable Node.js global variables
+    },
+    rules: {
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                argsIgnorePattern: "^_",
+                varsIgnorePattern: "^_",
+                caughtErrorsIgnorePattern: "^_",
+            },
+        ],
+    },
+    ignorePatterns: ["dist/*"],
 };

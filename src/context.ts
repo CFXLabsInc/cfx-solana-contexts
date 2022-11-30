@@ -4,7 +4,7 @@ import { ProgramAuction, ProgramToken } from "./enums";
 import { RiskManagerSeed } from "./constants";
 import { CoinfxCurrencyContext, Config, EnvType } from "./types";
 
-const devConfig = require('../config/dev.json');
+import devConfig = require('./config/dev.json');
 
 export const coinfxManager = "3t41U2XXcdab8hwLyf7p3keVhU7sC6gxdBQMiNhum7wj";
 export const usdxMint = "6aj4iVXQe9RckXa1TzHKMSxUuvUmu65Q8gSRitjeJD8W";

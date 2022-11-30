@@ -1,0 +1,25 @@
+name: Pull Request Build
+on: pull_request
+
+jobs:
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.3
+        with:
+          # 7.14.x seems to break auth to GitHub Package Repository
+          version: 7.13
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: 'https://npm.pkg.github.com'
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm lint

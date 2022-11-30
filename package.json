@@ -14,12 +14,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "config"
+    "dist/*",
+    "dist/config"
   ],
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\"",
     "release": "semantic-release"
   },
   "dependencies": {
