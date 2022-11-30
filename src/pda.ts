@@ -14,14 +14,14 @@ export const coinfxManager = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy], cfxProgram);
 };
 
 export const riskManager = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, RiskManager], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy, RiskManager], cfxProgram);
 };
 
 export const managerUserPermissions = async (
@@ -32,7 +32,7 @@ export const managerUserPermissions = async (
   return deriveAddressFromSeeds(
     [ccy, UserPermissions, adminPubkey.toBase58()],
     cfxProgram
-  )[0];
+  );
 };
 
 export const usdxUsdOracleManager = async (
@@ -42,62 +42,56 @@ export const usdxUsdOracleManager = async (
   return deriveAddressFromSeeds(
     [ccy, ProgramOracleManager.USDXUSD],
     cfxProgram
-  )[0];
+  );
 };
 
 export const fxUsdOracleManager = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds(
-    [ccy, ProgramOracleManager.FXUSD],
-    cfxProgram
-  )[0];
+  return deriveAddressFromSeeds([ccy, ProgramOracleManager.FXUSD], cfxProgram);
 };
 
 export const solUsdOracleManager = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds(
-    [ccy, ProgramOracleManager.SOLUSD],
-    cfxProgram
-  )[0];
+  return deriveAddressFromSeeds([ccy, ProgramOracleManager.SOLUSD], cfxProgram);
 };
 
 export const cfxUsdxDa = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, ProgramAuction.CFXUSDX], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy, ProgramAuction.CFXUSDX], cfxProgram);
 };
 
 export const usdxCfxDa = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, ProgramAuction.USDXCFX], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy, ProgramAuction.USDXCFX], cfxProgram);
 };
 
 export const dankCfxDa = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, ProgramAuction.DANKCFX], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy, ProgramAuction.DANKCFX], cfxProgram);
 };
 
 export const usdxDankDa = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, ProgramAuction.USDXDANK], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy, ProgramAuction.USDXDANK], cfxProgram);
 };
 
 export const cfxMint = async (
   ccy: string,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, ProgramToken.CFX], cfxProgram)[0];
+  return deriveAddressFromSeeds([ccy, ProgramToken.CFX], cfxProgram);
 };
 
 export const dankMint = async (
@@ -109,7 +103,7 @@ export const dankMint = async (
   return deriveAddressFromSeeds(
     [conditionalDankSeed, ProgramToken.DANK],
     cfxProgram
-  )[0];
+  );
 };
 
 export const dankMintAuthority = async (
@@ -120,13 +114,13 @@ export const dankMintAuthority = async (
   const conditionalDankSeed = sharedDank ? SharedDank : ccy;
 
   // If dank is not shared, this will be the coinfxManager address
-  return deriveAddressFromSeeds([conditionalDankSeed], cfxProgram)[0];
+  return deriveAddressFromSeeds([conditionalDankSeed], cfxProgram);
 };
 
 export const cpammFactory = async (
   creator: PublicKey,
   cpammProgram: PublicKey
-): Promise<[PublicKey, number]> => {
+): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
     [Cpamm.FACTORY, creator.toBase58()],
     cpammProgram
@@ -138,7 +132,7 @@ export const swapAccount = async (
   token0: PublicKey,
   token1: PublicKey,
   cpammProgram: PublicKey
-): Promise<[PublicKey, number]> => {
+): Promise<PublicKey> => {
   const [first, second] = sortByPubkey(token0, token1)!;
   return deriveAddressFromSeeds(
     [Cpamm.SWAPINFO, factory.toBase58(), first.toBase58(), second.toBase58()],
@@ -154,13 +148,13 @@ export const swapUserPermissions = async (
   return deriveAddressFromSeeds(
     [UserPermissions, adminPubkey.toBase58(), swapAccount.toBase58()],
     cpammProgram
-  )[0];
+  );
 };
 
 const deriveAddressFromSeeds = async (
   seeds: string[],
   program: PublicKey
-): Promise<[PublicKey, number]> => {
+): Promise<PublicKey> => {
   const seedBuffers = seeds.map((seed) => Buffer.from(seed));
-  return await PublicKey.findProgramAddress(seedBuffers, program);
+  return await PublicKey.findProgramAddress(seedBuffers, program)[0];
 };

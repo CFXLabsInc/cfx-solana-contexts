@@ -64,17 +64,14 @@ export class CoinfxContext {
 
     // CPAMM PDA's
 
-    const [cpammFactory, cpammFactoryBump] = await Pda.cpammFactory(
-      adminPubkey,
-      cpammProgram
-    );
-    const [usdxDankSwap, usdxDankSwapBump] = await Pda.swapAccount(
+    const cpammFactory = await Pda.cpammFactory(adminPubkey, cpammProgram);
+    const usdxDankSwap = await Pda.swapAccount(
       cpammFactory,
       usdxMint,
       dankMint,
       cpammProgram
     );
-    const [usdxCfxSwap, usdxCfxSwapBump] = await Pda.swapAccount(
+    const usdxCfxSwap = await Pda.swapAccount(
       cpammFactory,
       usdxMint,
       cfxMint,
@@ -169,7 +166,6 @@ export class CoinfxContext {
       dankTokenAccount,
       userPermissions,
       cpammFactory,
-      cpammFactoryBump,
       fxUsdOracleManager: {
         oracleManager: fxUsdOracleManager,
         pythOracle: fxOracleAccounts[ccy].pyth,
@@ -187,7 +183,6 @@ export class CoinfxContext {
       },
       usdxDankSwap: {
         swap: usdxDankSwap,
-        swapBump: usdxDankSwapBump,
         userPermissions: usdxDankSwapUserPermissions,
         usdxInfo: {
           reserve: usdxDankReserveTokenAccountUsdx,
@@ -200,7 +195,6 @@ export class CoinfxContext {
       },
       usdxCfxSwap: {
         swap: usdxCfxSwap,
-        swapBump: usdxCfxSwapBump,
         userPermissions: usdxCfxSwapUserPermissions,
         usdxInfo: {
           reserve: usdxCfxReserveTokenAccountUsdx,
