@@ -1,7 +1,7 @@
 {
   "adminPubkey": 0,
-  "cpammProgramId": 0,
-  "cfxProgramId": 0,
+  "cpammProgram": 0,
+  "cfxProgram": 0,
   "usdxMint": 0,
   "sharedDank": true,
   "sharedOracleAccounts": {

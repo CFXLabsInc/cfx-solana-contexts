@@ -4,6 +4,7 @@ import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
 import { RiskManagerSeed } from "./constants";
 import { CoinFxContext, Config, Env } from "./types";
 import { decodeObjectToPubkeys } from "./utils";
+import * as Pda from "./pda";
 
 import devConfig = require("./config/dev.json");
 
@@ -28,33 +29,27 @@ export class CoinfxContext {
   public async getContext(ccy: string): Promise<CoinFxContext> {
     const {
       adminPubkey,
-      cpammProgramId,
-      cfxProgramId,
+      cpammProgram,
+      cfxProgram,
       usdxMint,
       sharedDank,
       fxOracleAccounts,
       sharedOracleAccounts,
     } = this.config;
 
-    const [coinfxManager] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8")],
-      cfxProgramId
-    );
-
-    const [cfxMint] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8"), Buffer.from(ccy, "utf-8")],
-      cfxProgramId
-    );
-
-    const [dankMint] = await PublicKey.findProgramAddress(
-      [
-        sharedDank
-          ? Buffer.from("shared_dank", "utf-8")
-          : Buffer.from(ccy, "utf-8"),
-        Buffer.from(ProgramToken.DANK, "utf-8"),
-      ],
-      cfxProgramId
-    );
+    const coinfxManager = await Pda.coinfxManager(ccy, cfxProgram);
+    const riskManager = await Pda.riskManager(ccy, cfxProgram);
+    const usdxUsdOracleManager = await Pda.usdxUsdOracleManager(ccy, cfxProgram);
+    const fxUsdOracleManager = await Pda.fxUsdOracleManager(ccy, cfxProgram);
+    const solUsdOracleManager = await Pda.solUsdOracleManager(ccy, cfxProgram);
+    const cfxUsdxDa = await Pda.cfxUsdxDa(ccy, cfxProgram);
+    const usdxCfxDa = await Pda.usdxCfxDa(ccy, cfxProgram);
+    const dankCfxDa = await Pda.dankCfxDa(ccy, cfxProgram);
+    const usdxDankDa = await Pda.usdxDankDa(ccy, cfxProgram);
+    const cfxMint = await Pda.cfxMint(ccy, cfxProgram);
+    const dankMint = await Pda.dankMint(ccy, cfxProgram, sharedDank);
+    const dankMintAuthority = await Pda.dankMintAuthority(ccy, cfxProgram, sharedDank);
+    const userPermissions = await Pda.userPermissions(cfxProgram, adminPubkey);
 
     const cfxTokenAccount = await getAssociatedTokenAddress(
       cfxMint,
@@ -85,68 +80,10 @@ export class CoinfxContext {
       true
     );
 
-    const [cfxUsdxDa] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.CFXUSDX, "utf-8")],
-      cfxProgramId
-    );
-    const [usdxCfxDa] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.USDXCFX, "utf-8")],
-      cfxProgramId
-    );
-    const [dankCfxDa] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8"), Buffer.from(ProgramAuction.DANKCFX, "utf-8")],
-      cfxProgramId
-    );
-    const [usdxDankDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(ccy, "utf-8"),
-        Buffer.from(ProgramAuction.USDXDANK, "utf-8"),
-      ],
-      cfxProgramId
-    );
-
-    const [riskManager] = await PublicKey.findProgramAddress(
-      [Buffer.from(ccy, "utf-8"), Buffer.from(RiskManagerSeed, "utf-8")],
-      cfxProgramId
-    );
-
-    const [dankMintAuthority] = await PublicKey.findProgramAddress(
-      [
-        sharedDank
-          ? Buffer.from("shared_dank", "utf-8")
-          : Buffer.from(ccy, "utf-8"),
-      ],
-      cfxProgramId
-    );
-
-    const [usdxUsdOracleManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(ccy, "utf-8"),
-        Buffer.from(ProgramOracleManager.USDXUSD, "utf-8"),
-      ],
-      cfxProgramId
-    );
-
-    const [fxUsdOracleManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(ccy, "utf-8"),
-        Buffer.from(ProgramOracleManager.FXUSD, "utf-8"),
-      ],
-      cfxProgramId
-    );
-
-    const [solUsdOracleManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(ccy, "utf-8"),
-        Buffer.from(ProgramOracleManager.SOLUSD, "utf-8"),
-      ],
-      cfxProgramId
-    );
-
     return {
       adminPubkey,
-      cpammProgramId,
-      cfxProgramId,
+      cpammProgram,
+      cfxProgram,
       usdxMint,
       sharedDank,
       coinfxManager,
@@ -164,6 +101,7 @@ export class CoinfxContext {
       cfxTokenAccount,
       usdxTokenAccount,
       dankTokenAccount,
+      userPermissions,
       fxUsdOracleManager: {
         oracleManager: fxUsdOracleManager,
         pythOracle: fxOracleAccounts[ccy].pyth,
@@ -180,7 +118,6 @@ export class CoinfxContext {
         switchboardAggregator: sharedOracleAccounts["SOL"].switchboard,
       },
     };
-    // todo: oracle
 
     // todo: swap
     // const [cpammFactory] = await PublicKey.findProgramAddress(
@@ -213,8 +150,8 @@ export class CoinfxContext {
 
   private decodeConfig(json: { [key: string]: any }): Config {
     json["adminPubkey"] = new PublicKey(json["adminPubkey"]);
-    json["cpammProgramId"] = new PublicKey(json["cpammProgramId"]);
-    json["cfxProgramId"] = new PublicKey(json["cfxProgramId"]);
+    json["cpammProgram"] = new PublicKey(json["cpammProgram"]);
+    json["cfxProgram"] = new PublicKey(json["cfxProgram"]);
     json["usdxMint"] = new PublicKey(json["usdxMint"]);
     json["sharedOracleAccounts"] = decodeObjectToPubkeys(
       json["sharedOracleAccounts"]

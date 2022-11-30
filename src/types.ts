@@ -2,8 +2,8 @@ import { PublicKey } from "@solana/web3.js";
 
 export interface Config {
   adminPubkey: PublicKey;
-  cpammProgramId: PublicKey;
-  cfxProgramId: PublicKey;
+  cpammProgram: PublicKey;
+  cfxProgram: PublicKey;
   usdxMint: PublicKey;
   sharedDank: boolean;
   sharedOracleAccounts: {
@@ -37,9 +37,43 @@ export interface CoinFxContext
   cfxTokenAccount: PublicKey;
   usdxTokenAccount: PublicKey;
   dankTokenAccount: PublicKey;
+  userPermissions: PublicKey;
   usdxUsdOracleManager: UsdxUsdOracleManager;
   fxUsdOracleManager: FxUsdOracleManager;
   solUsdOracleManager: SolUsdOracleManager;
+  // usdxCfxSwap: UsdxCfxSwap;
+  // usdxDankSwap: UsdxDankSwap;
+  // userPermissions: PublicKey;
+}
+
+export interface UsdxCfxSwap {
+  userPermissions: PublicKey;
+  swap: PublicKey;
+  usdxInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+    fees: PublicKey
+  },
+  cfxInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+    fees: PublicKey
+  }
+}
+
+export interface UsdxDankSwap {
+  userPermissions: PublicKey;
+  swap: PublicKey;
+  usdxInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+    fees: PublicKey
+  },
+  dankInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+    fees: PublicKey
+  }
 }
 
 export interface UsdxUsdOracleManager {
