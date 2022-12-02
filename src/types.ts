@@ -1,27 +1,33 @@
 import { PublicKey } from "@solana/web3.js";
 
 export interface Config {
+  cluster: SolanaCluster;
   adminPubkey: PublicKey;
   cpammProgram: PublicKey;
   cfxProgram: PublicKey;
   usdxMint: PublicKey;
   sharedDank: boolean;
-  sharedOracleAccounts: {
-    [currency: string]: {
-      pyth: PublicKey;
-      switchboard: PublicKey;
-    };
-  };
-  fxOracleAccounts: {
-    [currency: string]: {
-      pyth: PublicKey;
-      switchboard: PublicKey;
-    };
-  };
 }
 
-export interface CoinFxContext
-  extends Omit<Config, "sharedOracleAccounts" | "fxOracleAccounts"> {
+export interface OracleConfig {
+  cluster: SolanaCluster;
+  fx: {
+    [currency: string]: {
+      pyth?: PublicKey;
+      switchboard?: PublicKey;
+    }
+  },
+  usdx: {
+    pyth?: PublicKey;
+    switchboard?: PublicKey;
+  },
+  sol: {
+    pyth?: PublicKey;
+    switchboard?: PublicKey;
+  }
+}
+
+export interface SolanaContext extends Config {
   coinfxManager: PublicKey;
   cfxMint: PublicKey;
   dankMint: PublicKey;
@@ -74,20 +80,22 @@ export interface UsdxDankSwap {
 
 export interface UsdxUsdOracleManager {
   oracleManager: PublicKey;
-  pythOracle: PublicKey;
-  switchboardAggregator: PublicKey;
+  pythOracle?: PublicKey;
+  switchboardAggregator?: PublicKey;
 }
 
 export interface FxUsdOracleManager {
   oracleManager: PublicKey;
-  pythOracle: PublicKey;
-  switchboardAggregator: PublicKey;
+  pythOracle?: PublicKey;
+  switchboardAggregator?: PublicKey;
 }
 
 export interface SolUsdOracleManager {
   oracleManager: PublicKey;
-  pythOracle: PublicKey;
-  switchboardAggregator: PublicKey;
+  pythOracle?: PublicKey;
+  switchboardAggregator?: PublicKey;
 }
 
 export type Env = "dev" | "pre-prod" | "cust-sandbox" | "prod";
+
+export type SolanaCluster = "devnet" | "mainnet-beta";

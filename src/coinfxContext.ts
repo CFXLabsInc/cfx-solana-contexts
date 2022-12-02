@@ -1,39 +1,45 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
+import { readFileSync } from "fs";
 import { PublicKey } from "@solana/web3.js";
-import { CoinFxContext, Config, Env } from "./types";
-import { decodeObjectToPubkeys, sortByPubkey } from "./utils";
+import { SolanaContext, Config, Env, SolanaCluster, OracleConfig } from "./types";
+import { decodeObjectToPubkeys } from "./utils";
 import * as Pda from "./pda";
-
-import devConfig = require("./config/dev.json");
 
 export class CoinfxContext {
   public env: Env;
+  public cluster: SolanaCluster;
   private readonly config: Config;
+  private readonly oracleConfig: OracleConfig;
 
   constructor(env: Env) {
     this.env = env;
-
-    if (env === "dev") {
-      this.config = this.decodeConfig(devConfig);
-    } else {
-      throw Error("config file not found");
-    }
+    this.cluster = this.getCluster(env);
+    this.config = this.readConfig(env);
+    this.oracleConfig = this.readOracleConfig(env);
   }
 
   public getConfig(): Config {
     return this.config;
   }
 
-  public async getContext(ccy: string): Promise<CoinFxContext> {
+  public getOracleConfig(): OracleConfig {
+    return this.oracleConfig;
+  }
+
+  public getCluster(env: Env): SolanaCluster {
+    return env == "prod" ? "mainnet-beta" : "devnet"
+  }
+
+  public async getContext(ccy: string): Promise<SolanaContext> {
     const {
       adminPubkey,
       cpammProgram,
       cfxProgram,
       usdxMint,
       sharedDank,
-      fxOracleAccounts,
-      sharedOracleAccounts,
     } = this.config;
+
+    const { fx, usdx, sol } = this.oracleConfig;
 
     // CFX PDA's
 
@@ -144,6 +150,7 @@ export class CoinfxContext {
     );
 
     return {
+      cluster: this.cluster,
       adminPubkey,
       cpammProgram,
       cfxProgram,
@@ -168,18 +175,18 @@ export class CoinfxContext {
       cpammFactory,
       fxUsdOracleManager: {
         oracleManager: fxUsdOracleManager,
-        pythOracle: fxOracleAccounts[ccy].pyth,
-        switchboardAggregator: fxOracleAccounts[ccy].switchboard,
+        pythOracle: fx[ccy].pyth,
+        switchboardAggregator: fx[ccy].switchboard,
       },
       usdxUsdOracleManager: {
         oracleManager: usdxUsdOracleManager,
-        pythOracle: sharedOracleAccounts["USDX"].pyth,
-        switchboardAggregator: sharedOracleAccounts["USDX"].switchboard,
+        pythOracle: usdx.pyth,
+        switchboardAggregator: usdx.switchboard,
       },
       solUsdOracleManager: {
         oracleManager: solUsdOracleManager,
-        pythOracle: sharedOracleAccounts["SOL"].pyth,
-        switchboardAggregator: sharedOracleAccounts["SOL"].switchboard,
+        pythOracle: sol.pyth,
+        switchboardAggregator: sol.switchboard,
       },
       usdxDankSwap: {
         swap: usdxDankSwap,
@@ -208,15 +215,33 @@ export class CoinfxContext {
     };
   }
 
+  private readConfig(env: Env): Config {
+    const json = JSON.parse(readFileSync(`config/${env}.json`, "utf8"));
+    return this.decodeConfig(json)
+  }
+
+  private readOracleConfig(env: Env): OracleConfig {
+    const json = JSON.parse(readFileSync(`config/oracles/${env}.json`, "utf8"));
+    return this.decodeOracleConfig(json)
+  }
+
+  private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
+    return {
+      cluster: json["cluster"],
+      fx: decodeObjectToPubkeys(json["fx"]),
+      usdx: decodeObjectToPubkeys(json["usdx"]),
+      sol: decodeObjectToPubkeys(json["sol"])
+    } as OracleConfig
+  }
+
   private decodeConfig(json: { [key: string]: any }): Config {
-    json["adminPubkey"] = new PublicKey(json["adminPubkey"]);
-    json["cpammProgram"] = new PublicKey(json["cpammProgram"]);
-    json["cfxProgram"] = new PublicKey(json["cfxProgram"]);
-    json["usdxMint"] = new PublicKey(json["usdxMint"]);
-    json["sharedOracleAccounts"] = decodeObjectToPubkeys(
-      json["sharedOracleAccounts"]
-    );
-    json["fxOracleAccounts"] = decodeObjectToPubkeys(json["fxOracleAccounts"]);
-    return json as Config;
+    return {
+      cluster: json["cluster"],
+      adminPubkey: new PublicKey(json["adminPubkey"]),
+      cpammProgram: new PublicKey(json["cpammProgram"]),
+      cfxProgram: new PublicKey(json["cfxProgram"]),
+      usdxMint: new PublicKey(json["usdxMint"]),
+      sharedDank: json["sharedDank"]
+    }
   }
 }
