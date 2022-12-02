@@ -13,7 +13,7 @@ This is already baked into our github actions workflows, but for local developme
 Currently, this package enables developers to fetch all Solana accounts associated with our protocol.
 
 ```typescript
-import { Config, OracleConfig, getContext, SolanaContext } from "@cfxlabsinc/solana-contexts;
+import { CoinfxContext, Config, OracleConfig, SolanaContext } from "@cfxlabsinc/solana-contexts;
 
 const context = new CoinfxContext("dev");
 
