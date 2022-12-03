@@ -11,12 +11,6 @@ export interface Config {
 
 export interface OracleConfig {
   cluster: SolanaCluster;
-  fx: {
-    [currency: string]: {
-      pyth?: PublicKey;
-      switchboard?: PublicKey;
-    }
-  },
   usdx: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
@@ -24,7 +18,14 @@ export interface OracleConfig {
   sol: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
-  }
+  },
+  fx: {
+    [currency: string]: {
+      invertQuote: boolean;
+      pyth?: PublicKey;
+      switchboard?: PublicKey;
+    }
+  },
 }
 
 export interface SolanaContext extends Config {

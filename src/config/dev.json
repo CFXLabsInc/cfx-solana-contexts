@@ -1,28 +1,8 @@
 {
   "cluster": "devnet",
   "adminPubkey": "7FMcPdJSiuYup8VhVkrNJjEDr9NHJLaLDjsDMaXbYLG1",
-  "cpammProgram": 0,
-  "cfxProgram": 0,
-  "usdxMint": 0,
-  "sharedDank": true,
-  "sharedOracleAccounts": {
-    "SOL": {
-      "pyth": 0,
-      "switchboard": 0
-    },
-    "USDX": {
-      "pyth": 0,
-      "switchboard": 0
-    }
-  },
-  "currencies": {
-    "AUD": {
-      "pyth": 0,
-      "switchboard": 0
-    },
-    "INR": {
-      "pyth": 0,
-      "switchboard": 0
-    }
-  }
+  "cpammProgram": "senEXePgYEdtmTrb3yap5viLs5vVu4cTsTJA7vPGuqW",
+  "cfxProgram": "benNzjvWV5pv7pccKfHTgZDmvzxcmbBTJZT2Cmzw2Nu",
+  "usdxMint": "usdx3rKMPDHqrkZ2HUdTEd6GCZjDuyAdp8hS35Qjv8z",
+  "sharedDank": true
 }
