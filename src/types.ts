@@ -1,94 +1,102 @@
-export type EnvType = "dev" | "pre-pod"
+import { PublicKey } from "@solana/web3.js";
 
 export interface Config {
-  env: string,
-  coinfxManager: string,
-  usdxMint: string,
-  cfxProgram: string,
-  cpammProgram: string,
-  pythProgram: string,
-  authority: string,
-  shareDank: boolean
+  cluster: SolanaCluster;
+  adminPubkey: PublicKey;
+  cpammProgram: PublicKey;
+  cfxProgram: PublicKey;
+  usdxMint: PublicKey;
+  sharedDank: boolean;
 }
 
-export interface CoinfxCurrencyContext {
-  coinfxManager: string
-  usdxMint: string
-  usdxVault: string
-  cfxMint: string
-  cfxVault: string
-  dankMint: string
-  dankVault: string
-  cfxUsdxDa: string
-  usdxCfxDa: string
-  dankCfxDa: string
-  usdxDankDa: string
-  usdxUsdOracleManager: UsdxUsdOracleManager
-  fxUsdOracleManager: FxUsdOracleManager
-  solUsdOracleManager: SolUsdOracleManager
-  cfxProgram: string
-  pythProgram: string
-  cpammProgram: string
-  // TODO: add swap
-  // usdxDankSwap: UsdxDankSwap
-  // usdxCfxSwap: UsdxCfxSwap
-  dankMintAuthority: string
-  userPermissions: string
-  riskManager: string
+export interface OracleConfig {
+  cluster: SolanaCluster;
+  usdx: {
+    pyth?: PublicKey;
+    switchboard?: PublicKey;
+  },
+  sol: {
+    pyth?: PublicKey;
+    switchboard?: PublicKey;
+  },
+  fx: {
+    [currency: string]: {
+      invertQuote: boolean;
+      pyth?: PublicKey;
+      switchboard?: PublicKey;
+    }
+  },
 }
 
-export interface UsdxUsdOracleManager {
-  oracleManager: string
-  pythOracle: string
-  switchboardAggregator: string
-}
-
-export interface FxUsdOracleManager {
-  oracleManager: string
-  pythOracle: string
-  switchboardAggregator: string
-}
-
-export interface SolUsdOracleManager {
-  oracleManager: string
-  pythOracle: string
-  switchboardAggregator: string
-}
-
-export interface UsdxDankSwap {
-  swap: string
-  dankInfo: DankInfo
-  usdxInfo: UsdxInfo
-  userPermissions: string
-}
-
-export interface DankInfo {
-  mint: string
-  reserve: string
-  fees: string
-}
-
-export interface UsdxInfo {
-  mint: string
-  reserve: string
-  fees: string
+export interface SolanaContext extends Config {
+  coinfxManager: PublicKey;
+  cfxMint: PublicKey;
+  dankMint: PublicKey;
+  cfxVault: PublicKey;
+  dankVault: PublicKey;
+  usdxVault: PublicKey;
+  cfxUsdxDa: PublicKey;
+  usdxCfxDa: PublicKey;
+  dankCfxDa: PublicKey;
+  usdxDankDa: PublicKey;
+  riskManager: PublicKey;
+  dankMintAuthority: PublicKey;
+  cfxTokenAccount: PublicKey;
+  usdxTokenAccount: PublicKey;
+  dankTokenAccount: PublicKey;
+  userPermissions: PublicKey;
+  usdxUsdOracleManager: UsdxUsdOracleManager;
+  fxUsdOracleManager: FxUsdOracleManager;
+  solUsdOracleManager: SolUsdOracleManager;
+  cpammFactory: PublicKey;
+  usdxCfxSwap: UsdxCfxSwap;
+  usdxDankSwap: UsdxDankSwap;
 }
 
 export interface UsdxCfxSwap {
-  swap: string
-  usdxInfo: UsdxInfo2
-  cfxInfo: CfxInfo
-  userPermissions: string
+  userPermissions: PublicKey;
+  swap: PublicKey;
+  usdxInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+  };
+  cfxInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+  };
 }
 
-export interface UsdxInfo2 {
-  mint: string
-  reserve: string
-  fees: string
+export interface UsdxDankSwap {
+  userPermissions: PublicKey;
+  swap: PublicKey;
+  usdxInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+  };
+  dankInfo: {
+    mint: PublicKey;
+    reserve: PublicKey;
+  };
 }
 
-export interface CfxInfo {
-  mint: string
-  reserve: string
-  fees: string
+export interface UsdxUsdOracleManager {
+  oracleManager: PublicKey;
+  pythOracle?: PublicKey;
+  switchboardAggregator?: PublicKey;
 }
+
+export interface FxUsdOracleManager {
+  oracleManager: PublicKey;
+  pythOracle?: PublicKey;
+  switchboardAggregator?: PublicKey;
+}
+
+export interface SolUsdOracleManager {
+  oracleManager: PublicKey;
+  pythOracle?: PublicKey;
+  switchboardAggregator?: PublicKey;
+}
+
+export type Env = "dev" | "pre-prod" | "cust-sandbox" | "prod";
+
+export type SolanaCluster = "devnet" | "mainnet-beta";

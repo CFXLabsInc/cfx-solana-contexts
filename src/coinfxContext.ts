@@ -1,206 +1,247 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
+import { readFileSync } from "fs";
 import { PublicKey } from "@solana/web3.js";
-import { ProgramAuction, ProgramOracleManager, ProgramToken } from "./enums";
-import { RiskManagerSeed } from "./constants";
-import { CoinfxCurrencyContext, Config, EnvType } from "./types";
-
-import devConfig = require('./config/dev.json');
+import { SolanaContext, Config, Env, SolanaCluster, OracleConfig } from "./types";
+import { decodeObjectToPubkeys } from "./utils";
+import * as Pda from "./pda";
 
 export class CoinfxContext {
-  public env: EnvType
-  private readonly config: Config
+  public env: Env;
+  public cluster: SolanaCluster;
+  private readonly config: Config;
+  private readonly oracleConfig: OracleConfig;
 
-  constructor(env: EnvType) {
+  constructor(env: Env) {
     this.env = env;
-
-    if (env === 'dev') {
-      this.config = devConfig
-    } else {
-      throw Error('config file not found')
-    }
-  }
-
-  private encodeString(value: string): string {
-    return Buffer.from(value, 'utf-8').toString();
+    this.cluster = this.getCluster(env);
+    this.config = this.readConfig(env);
+    this.oracleConfig = this.readOracleConfig(env);
   }
 
   public getConfig(): Config {
-    return this.config
+    return this.config;
   }
 
-  public async getCurrencyContext(ccy: string): Promise<CoinfxCurrencyContext> {
+  public getOracleConfig(): OracleConfig {
+    return this.oracleConfig;
+  }
 
-    const cfxProgramPk = new PublicKey(this.config.cfxProgram)
-    const coinfxManagerPk = new PublicKey(this.config.coinfxManager)
-    const usdxMintPk = new PublicKey(this.config.usdxMint)
-    const authorityPk = new PublicKey(this.config.authority)
-    const cpammProgramPk = new PublicKey(this.config.cpammProgram)
+  public getCluster(env: Env): SolanaCluster {
+    return env == "prod" ? "mainnet-beta" : "devnet"
+  }
 
-    const usdxVault = await getAssociatedTokenAddress(
-      usdxMintPk,
-      coinfxManagerPk,
+  public async getContext(ccy: string): Promise<SolanaContext> {
+    const {
+      adminPubkey,
+      cpammProgram,
+      cfxProgram,
+      usdxMint,
+      sharedDank,
+    } = this.config;
+
+    const { fx, usdx, sol } = this.oracleConfig;
+
+    // CFX PDA's
+
+    const coinfxManager = await Pda.coinfxManager(ccy, cfxProgram);
+    const riskManager = await Pda.riskManager(ccy, cfxProgram);
+    const userPermissions = await Pda.managerUserPermissions(
+      ccy,
+      adminPubkey,
+      cfxProgram
+    );
+    const usdxUsdOracleManager = await Pda.usdxUsdOracleManager(
+      ccy,
+      cfxProgram
+    );
+    const fxUsdOracleManager = await Pda.fxUsdOracleManager(ccy, cfxProgram);
+    const solUsdOracleManager = await Pda.solUsdOracleManager(ccy, cfxProgram);
+    const cfxUsdxDa = await Pda.cfxUsdxDa(ccy, cfxProgram);
+    const usdxCfxDa = await Pda.usdxCfxDa(ccy, cfxProgram);
+    const dankCfxDa = await Pda.dankCfxDa(ccy, cfxProgram);
+    const usdxDankDa = await Pda.usdxDankDa(ccy, cfxProgram);
+    const cfxMint = await Pda.cfxMint(ccy, cfxProgram);
+    const dankMint = await Pda.dankMint(ccy, cfxProgram, sharedDank);
+    const dankMintAuthority = await Pda.dankMintAuthority(
+      ccy,
+      cfxProgram,
+      sharedDank
+    );
+
+    // CPAMM PDA's
+
+    const cpammFactory = await Pda.cpammFactory(adminPubkey, cpammProgram);
+    const usdxDankSwap = await Pda.swapAccount(
+      cpammFactory,
+      usdxMint,
+      dankMint,
+      cpammProgram
+    );
+    const usdxCfxSwap = await Pda.swapAccount(
+      cpammFactory,
+      usdxMint,
+      cfxMint,
+      cpammProgram
+    );
+    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
+      adminPubkey,
+      usdxDankSwap,
+      cpammProgram
+    );
+    const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(
+      adminPubkey,
+      usdxCfxSwap,
+      cpammProgram
+    );
+
+    // AssociatedTokenAccounts
+
+    const usdxDankReserveTokenAccountUsdx = await getAssociatedTokenAddress(
+      usdxMint,
+      usdxDankSwap,
       true
     );
-    const [cfxMint] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramToken.CFX)),
-      ],
-      cfxProgramPk
+
+    const usdxDankReserveTokenAccountDank = await getAssociatedTokenAddress(
+      dankMint,
+      usdxDankSwap,
+      true
     );
+
+    const usdxCfxReserveTokenAccountUsdx = await getAssociatedTokenAddress(
+      usdxMint,
+      usdxCfxSwap,
+      true
+    );
+
+    const usdxCfxReserveTokenAccountCfx = await getAssociatedTokenAddress(
+      cfxMint,
+      usdxCfxSwap,
+      true
+    );
+
+    const cfxTokenAccount = await getAssociatedTokenAddress(
+      cfxMint,
+      adminPubkey
+    );
+    const usdxTokenAccount = await getAssociatedTokenAddress(
+      usdxMint,
+      adminPubkey
+    );
+    const dankTokenAccount = await getAssociatedTokenAddress(
+      dankMint,
+      adminPubkey
+    );
+
     const cfxVault = await getAssociatedTokenAddress(
       cfxMint,
-      coinfxManagerPk,
+      coinfxManager,
       true
-    );
-    const [dankMint] = await PublicKey.findProgramAddress(
-      [
-        this.config.shareDank ?
-          Buffer.from(this.encodeString("shared_dank"))
-          : Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramToken.DANK)),
-      ],
-      cfxProgramPk
     );
     const dankVault = await getAssociatedTokenAddress(
       dankMint,
-      coinfxManagerPk,
+      coinfxManager,
+      true
+    );
+    const usdxVault = await getAssociatedTokenAddress(
+      usdxMint,
+      coinfxManager,
       true
     );
 
-    const [cfxUsdxDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.CFXUSDX)),
-      ],
-      cfxProgramPk
-    );
-
-    const [usdxCfxDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.USDXCFX)),
-      ],
-      cfxProgramPk
-    );
-    const [dankCfxDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.DANKCFX)),
-      ],
-      cfxProgramPk
-    );
-    const [usdxDankDa] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramAuction.USDXDANK)),
-      ],
-      cfxProgramPk
-    );
-
-    const [riskManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(RiskManagerSeed)),
-      ],
-      cfxProgramPk
-    );
-
-    const [dankMintAuthority] = await PublicKey.findProgramAddress(
-      [
-        this.config.shareDank ?
-          Buffer.from(this.encodeString("shared_dank"))
-          : Buffer.from(this.encodeString(ccy)),
-      ],
-      cfxProgramPk
-    );
-
-    const [usdxUsdOracleManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramOracleManager.USDXUSD)),
-      ],
-      cfxProgramPk
-    );
-
-    const [fxUsdOracleManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramOracleManager.FXUSD)),
-      ],
-      cfxProgramPk
-    );
-
-    const [solUsdOracleManager] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString(ccy)),
-        Buffer.from(this.encodeString(ProgramOracleManager.SOLUSD)),
-      ],
-      cfxProgramPk
-    );
-    // todo: oracle
-
-    // todo: swap
-    // const [cpammFactory] = await PublicKey.findProgramAddress(
-    //   [
-    //     Buffer.from(this.encodeString("Factory")),
-    //     authorityPk.toBuffer(),
-    //   ],
-    //   cpammProgramPk
-    // );
-
-    // const [token0, token1] = sortByPubkey(usdxMintPk, dankMint)!;
-    // const [usdxDankSwap] = await PublicKey.findProgramAddress(
-    //   [
-    //     Buffer.from(this.encodeString("SwapInfo")),
-    //     cpammFactory.toBuffer(),
-    //     token0.toBuffer(),
-    //     token1.toBuffer(),
-    //   ],
-    //   authorityPk
-    // );
-
-    const [userPermissions] = await PublicKey.findProgramAddress(
-      [
-        Buffer.from(this.encodeString("access_control")),
-        authorityPk.toBuffer(),
-      ],
-      cfxProgramPk
-    );
-
     return {
-      cfxProgram: this.config.cfxProgram,
-      cpammProgram: this.config.cpammProgram,
-      coinfxManager: this.config.coinfxManager,
-      userPermissions: userPermissions.toBase58(),
-      usdxMint: this.config.usdxMint,
-      usdxVault: usdxVault.toBase58(),
-      cfxMint: cfxMint.toBase58(),
-      cfxVault: cfxVault.toBase58(),
-      dankMint: dankMint.toBase58(),
-      dankVault: dankVault.toBase58(),
-      cfxUsdxDa: cfxUsdxDa.toBase58(),
-      usdxCfxDa: usdxCfxDa.toBase58(),
-      dankCfxDa: dankCfxDa.toBase58(),
-      usdxDankDa: usdxDankDa.toBase58(),
-      riskManager: riskManager.toBase58(),
-      dankMintAuthority: dankMintAuthority.toBase58(),
-      pythProgram: this.config.pythProgram,
+      cluster: this.cluster,
+      adminPubkey,
+      cpammProgram,
+      cfxProgram,
+      usdxMint,
+      sharedDank,
+      coinfxManager,
+      cfxMint,
+      dankMint,
+      cfxVault,
+      dankVault,
+      usdxVault,
+      cfxUsdxDa,
+      usdxCfxDa,
+      dankCfxDa,
+      usdxDankDa,
+      riskManager,
+      dankMintAuthority,
+      cfxTokenAccount,
+      usdxTokenAccount,
+      dankTokenAccount,
+      userPermissions,
+      cpammFactory,
       fxUsdOracleManager: {
-        oracleManager: fxUsdOracleManager.toBase58(),
-        pythOracle: PublicKey.default.toBase58(), // TODO: derive oracle
-        switchboardAggregator: PublicKey.default.toBase58(),
+        oracleManager: fxUsdOracleManager,
+        pythOracle: fx[ccy].pyth,
+        switchboardAggregator: fx[ccy].switchboard,
       },
       usdxUsdOracleManager: {
-        oracleManager: usdxUsdOracleManager.toBase58(),
-        pythOracle: PublicKey.default.toBase58(),
-        switchboardAggregator: PublicKey.default.toBase58(),
+        oracleManager: usdxUsdOracleManager,
+        pythOracle: usdx.pyth,
+        switchboardAggregator: usdx.switchboard,
       },
       solUsdOracleManager: {
-        oracleManager: solUsdOracleManager.toBase58(),
-        pythOracle: PublicKey.default.toBase58(),
-        switchboardAggregator: PublicKey.default.toBase58(),
+        oracleManager: solUsdOracleManager,
+        pythOracle: sol.pyth,
+        switchboardAggregator: sol.switchboard,
       },
+      usdxDankSwap: {
+        swap: usdxDankSwap,
+        userPermissions: usdxDankSwapUserPermissions,
+        usdxInfo: {
+          reserve: usdxDankReserveTokenAccountUsdx,
+          mint: usdxMint,
+        },
+        dankInfo: {
+          reserve: usdxDankReserveTokenAccountDank,
+          mint: dankMint,
+        },
+      },
+      usdxCfxSwap: {
+        swap: usdxCfxSwap,
+        userPermissions: usdxCfxSwapUserPermissions,
+        usdxInfo: {
+          reserve: usdxCfxReserveTokenAccountUsdx,
+          mint: usdxMint,
+        },
+        cfxInfo: {
+          reserve: usdxCfxReserveTokenAccountCfx,
+          mint: cfxMint,
+        },
+      },
+    };
+  }
+
+  private readConfig(env: Env): Config {
+    const json = JSON.parse(readFileSync(`config/${env}.json`, "utf8"));
+    return this.decodeConfig(json)
+  }
+
+  private readOracleConfig(env: Env): OracleConfig {
+    const json = JSON.parse(readFileSync(`config/oracles/${env}.json`, "utf8"));
+    return this.decodeOracleConfig(json)
+  }
+
+  private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
+    return {
+      cluster: json["cluster"],
+      fx: decodeObjectToPubkeys(json["fx"]),
+      usdx: decodeObjectToPubkeys(json["usdx"]),
+      sol: decodeObjectToPubkeys(json["sol"])
+    } as OracleConfig
+  }
+
+  private decodeConfig(json: { [key: string]: any }): Config {
+    return {
+      cluster: json["cluster"],
+      adminPubkey: new PublicKey(json["adminPubkey"]),
+      cpammProgram: new PublicKey(json["cpammProgram"]),
+      cfxProgram: new PublicKey(json["cfxProgram"]),
+      usdxMint: new PublicKey(json["usdxMint"]),
+      sharedDank: json["sharedDank"]
     }
   }
 }
