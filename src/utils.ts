@@ -14,8 +14,7 @@ export const sortByPubkey = (a: PublicKey, b: PublicKey) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// eslint-disable-next-line
 export const decodeObjectToPubkeys = (json: { [key: string]: any }) => {
   for (const [key, value] of Object.entries(json)) {
     if (value instanceof Object) {
