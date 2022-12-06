@@ -1,6 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
 import { zip } from "lodash";
-import { FxOracle } from "./types";
 
 export const sortByPubkey = (a: PublicKey, b: PublicKey) => {
   const bytes: Uint8Array[] = zip(a.toBytes(), b.toBytes());
