@@ -1,5 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { zip } from "lodash";
+import { FxOracle } from "./types";
 
 export const sortByPubkey = (a: PublicKey, b: PublicKey) => {
   const bytes: Uint8Array[] = zip(a.toBytes(), b.toBytes());
@@ -15,10 +16,12 @@ export const sortByPubkey = (a: PublicKey, b: PublicKey) => {
 };
 
 // eslint-disable-next-line
-export const decodeObjectToPubkeys = (json: { [key: string]: any }) => {
+export const decodeOracles = (json: { [key: string]: any }) => {
   for (const [key, value] of Object.entries(json)) {
     if (value instanceof Object) {
-      decodeObjectToPubkeys(value);
+      decodeOracles(value);
+    } else if (key === "invertQuote"){
+      continue
     } else {
       json[key] = new PublicKey(value);
     }

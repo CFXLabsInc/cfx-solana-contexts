@@ -247,9 +247,9 @@ export class CoinfxContext {
   private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
     return {
       cluster: json["cluster"],
-      fx: decodeObjectToPubkeys(json["fx"]),
-      usdx: decodeObjectToPubkeys(json["usdx"]),
-      sol: decodeObjectToPubkeys(json["sol"])
+      fx: decodeOracles(json["fx"]),
+      usdx: decodeOracles(json["usdx"]),
+      sol: decodeOracles(json["sol"]),
     } as OracleConfig
   }
 

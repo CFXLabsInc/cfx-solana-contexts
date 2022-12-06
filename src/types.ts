@@ -20,12 +20,14 @@ export interface OracleConfig {
     switchboard?: PublicKey;
   },
   fx: {
-    [currency: string]: {
-      invertQuote: boolean;
-      pyth?: PublicKey;
-      switchboard?: PublicKey;
-    }
+    [currency: string]: FxOracle
   },
+}
+
+export interface FxOracle {
+  invertQuote: boolean;
+  pyth?: PublicKey;
+  switchboard?: PublicKey;
 }
 
 export interface SolanaContext extends Config {
