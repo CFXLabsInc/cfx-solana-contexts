@@ -32,6 +32,7 @@ export interface FxOracle {
 }
 
 export interface SolanaContext extends Config {
+  currency: string;
   coinfxManager: PublicKey;
   cfxMint: PublicKey;
   dankMint: PublicKey;

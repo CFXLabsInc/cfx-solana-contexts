@@ -154,6 +154,7 @@ export class CoinfxContext {
 
     return {
       cluster: this.cluster,
+      currency: ccy,
       adminPubkey,
       authorityPubkey,
       cpammProgram,
