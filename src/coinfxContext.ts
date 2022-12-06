@@ -1,5 +1,4 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
-import { readFileSync } from "fs";
 import { PublicKey } from "@solana/web3.js";
 import { SolanaContext, Config, Env, SolanaCluster, OracleConfig } from "./types";
 import { decodeOracles } from "./utils";
