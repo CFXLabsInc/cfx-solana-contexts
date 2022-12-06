@@ -2,8 +2,11 @@ import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { readFileSync } from "fs";
 import { PublicKey } from "@solana/web3.js";
 import { SolanaContext, Config, Env, SolanaCluster, OracleConfig } from "./types";
-import { decodeObjectToPubkeys } from "./utils";
+import { decodeOracles } from "./utils";
 import * as Pda from "./pda";
+
+import devConfig = require("./config/dev.json");
+import devOracleConfig = require("./config/oracles/dev.json");
 
 export class CoinfxContext {
   public env: Env;
@@ -216,13 +219,29 @@ export class CoinfxContext {
   }
 
   private readConfig(env: Env): Config {
-    const json = JSON.parse(readFileSync(`config/${env}.json`, "utf8"));
-    return this.decodeConfig(json)
+    let config: Config;
+    switch(env) {
+      case "dev":
+        config = this.decodeConfig(devConfig);
+        break;
+      default:
+        throw Error(`Config not located for: ${env}`)
+    }
+
+    return config
   }
 
   private readOracleConfig(env: Env): OracleConfig {
-    const json = JSON.parse(readFileSync(`config/oracles/${env}.json`, "utf8"));
-    return this.decodeOracleConfig(json)
+    let config: OracleConfig;
+    switch(env) {
+      case "dev":
+        config = this.decodeOracleConfig(devOracleConfig);
+        break;
+      default:
+        throw Error(`Oracle Config not located for: ${env}`)
+    }
+
+    return config
   }
 
   private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
