@@ -35,6 +35,7 @@ export class CoinfxContext {
   public async getContext(ccy: string): Promise<SolanaContext> {
     const {
       adminPubkey,
+      authorityPubkey,
       cpammProgram,
       cfxProgram,
       usdxMint,
@@ -154,6 +155,7 @@ export class CoinfxContext {
     return {
       cluster: this.cluster,
       adminPubkey,
+      authorityPubkey,
       cpammProgram,
       cfxProgram,
       usdxMint,
@@ -256,6 +258,7 @@ export class CoinfxContext {
     return {
       cluster: json["cluster"],
       adminPubkey: new PublicKey(json["adminPubkey"]),
+      authorityPubkey: new PublicKey(json["authorityPubkey"]),
       cpammProgram: new PublicKey(json["cpammProgram"]),
       cfxProgram: new PublicKey(json["cfxProgram"]),
       usdxMint: new PublicKey(json["usdxMint"]),

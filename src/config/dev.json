@@ -1,6 +1,7 @@
 {
   "cluster": "devnet",
   "adminPubkey": "7FMcPdJSiuYup8VhVkrNJjEDr9NHJLaLDjsDMaXbYLG1",
+  "authorityPubkey": "7PnMdaJkGYmQytz275oHkxpB3mnXFFfSFKFPqQyaDp3T",
   "cpammProgram": "senEXePgYEdtmTrb3yap5viLs5vVu4cTsTJA7vPGuqW",
   "cfxProgram": "benNzjvWV5pv7pccKfHTgZDmvzxcmbBTJZT2Cmzw2Nu",
   "usdxMint": "usdx3rKMPDHqrkZ2HUdTEd6GCZjDuyAdp8hS35Qjv8z",

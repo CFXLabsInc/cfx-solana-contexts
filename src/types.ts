@@ -3,6 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 export interface Config {
   cluster: SolanaCluster;
   adminPubkey: PublicKey;
+  authorityPubkey: PublicKey;
   cpammProgram: PublicKey;
   cfxProgram: PublicKey;
   usdxMint: PublicKey;
