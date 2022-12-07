@@ -95,6 +95,7 @@ export interface UsdxUsdOracleManager {
 
 export interface FxUsdOracleManager {
   oracleManager: PublicKey;
+  invertQuote: boolean;
   pythOracle?: PublicKey;
   switchboardAggregator?: PublicKey;
 }

@@ -186,6 +186,7 @@ export class CoinfxContext {
       cpammFactory,
       fxUsdOracleManager: {
         oracleManager: fxUsdOracleManager,
+        invertQuote: fx[ccy].invertQuote,
         pythOracle: fx[ccy].pyth,
         switchboardAggregator: fx[ccy].switchboard,
       },
