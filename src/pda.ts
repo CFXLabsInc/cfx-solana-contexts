@@ -8,7 +8,6 @@ import {
   RiskManager,
   SharedDank,
 } from "./seeds";
-import { sortByPubkey } from "./utils";
 
 export const coinfxManager = async (
   ccy: string,
