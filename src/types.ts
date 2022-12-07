@@ -60,6 +60,8 @@ export interface SolanaContext extends Config {
 export interface UsdxCfxSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
+  lpMint: PublicKey;
+  lpTokenAccount: PublicKey;
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
@@ -73,6 +75,8 @@ export interface UsdxCfxSwap {
 export interface UsdxDankSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
+  lpMint: PublicKey;
+  lpTokenAccount: PublicKey;
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;

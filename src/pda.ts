@@ -106,6 +106,11 @@ export const dankMint = async (
   );
 };
 
+export const lpMint = async (token0: PublicKey, token1: PublicKey, cpammProgram: PublicKey): Promise<PublicKey> => {
+  const [first, second] = sortByPubkey(token0, token1)!;
+  return deriveAddressFromSeeds([first.toBase58(), second.toBase58()], cpammProgram)
+}
+
 export const dankMintAuthority = async (
   ccy: string,
   cfxProgram: PublicKey,

@@ -80,17 +80,19 @@ export class CoinfxContext {
       dankMint,
       cpammProgram
     );
+    const usdxDankLpMint = await Pda.lpMint(usdxMint, dankMint, cpammProgram)
+    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
+      adminPubkey,
+      usdxDankSwap,
+      cpammProgram
+    );
     const usdxCfxSwap = await Pda.swapAccount(
       cpammFactory,
       usdxMint,
       cfxMint,
       cpammProgram
     );
-    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
-      adminPubkey,
-      usdxDankSwap,
-      cpammProgram
-    );
+    const usdxCfxLpMint = await Pda.lpMint(usdxMint, cfxMint, cpammProgram)
     const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(
       adminPubkey,
       usdxCfxSwap,
@@ -152,6 +154,10 @@ export class CoinfxContext {
       true
     );
 
+    const usdxDankLpTokenAccount = await getAssociatedTokenAddress(usdxDankLpMint, adminPubkey);
+
+    const usdxCfxLpTokenAccount = await getAssociatedTokenAddress(usdxCfxLpMint, adminPubkey);
+
     return {
       cluster: this.cluster,
       currency: ccy,
@@ -195,6 +201,8 @@ export class CoinfxContext {
       },
       usdxDankSwap: {
         swap: usdxDankSwap,
+        lpMint: usdxDankLpMint,
+        lpTokenAccount: usdxDankLpTokenAccount,
         userPermissions: usdxDankSwapUserPermissions,
         usdxInfo: {
           reserve: usdxDankReserveTokenAccountUsdx,
@@ -207,6 +215,8 @@ export class CoinfxContext {
       },
       usdxCfxSwap: {
         swap: usdxCfxSwap,
+        lpMint: usdxCfxLpMint,
+        lpTokenAccount: usdxCfxLpTokenAccount,
         userPermissions: usdxCfxSwapUserPermissions,
         usdxInfo: {
           reserve: usdxCfxReserveTokenAccountUsdx,
