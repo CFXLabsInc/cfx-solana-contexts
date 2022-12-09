@@ -1,6 +1,6 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
-import { SolanaContext, Config, Env, SolanaCluster, OracleConfig } from "./types";
+import { SolanaContext, Config, Env, SolanaCluster, OracleConfig, Currency } from "./types";
 import { decodeOracles } from "./utils";
 import * as Pda from "./pda";
 
@@ -32,7 +32,7 @@ export class CoinfxContext {
     return env == "prod" ? "mainnet-beta" : "devnet"
   }
 
-  public async getContext(ccy: string): Promise<SolanaContext> {
+  public async getContext(ccy: Currency): Promise<SolanaContext> {
     const {
       adminPubkey,
       permissionedSwapPubkeys,
