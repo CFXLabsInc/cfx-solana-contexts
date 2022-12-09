@@ -9,449 +9,449 @@
   "fx": {
     "AED": {
       "invertQuote": true,
-      "switchboard": "68HrdPcQqnxpGd3dXPy4oTtntTeduko6QbiJhJvaVLx6"
+      "switchboard": "2m7stnfZ6cBVQJzc6YLd4ByvtXncf43mkSTfgQP9vVzV"
     },
     "AFN": {
       "invertQuote": true,
-      "switchboard": "5o3P3LEDtv2nwhdL4nzNRMwchLFrgkRLwDpvkTtXhHkH"
+      "switchboard": "6FTZEvCYaXK7dU7eqTKPhX3dL8XVpnSA7S14bSMVbEpt"
     },
     "ALL": {
       "invertQuote": true,
-      "switchboard": "BQPrMG7cf8UgESqzMqtJ7wTEQ5roKkbxgaxBQfR5ECX4"
+      "switchboard": "CyjiMqKsZX1cPmfUWFgMbreHsU7728bdxePcE1M7HRby"
     },
     "AMD": {
       "invertQuote": true,
-      "switchboard": "G38EhB1vX5haYyiV12J1tNifAtbvo3HnQDCLnjsaWLFG"
+      "switchboard": "DXf25JpkNsNoQ2KGHpv1KqDqXZrhhtD3f24pnxoyn7WB"
     },
     "ANG": {
       "invertQuote": true,
-      "switchboard": "CzrV3Urd1dbuS65e6NTZxAkdwMnVtnXtYcQ914vcvv5g"
+      "switchboard": "J6uj92yd8G124GkzAk15USnXAT9L5jFVaGeHYhVpjUCs"
     },
     "AOA": {
       "invertQuote": true,
-      "switchboard": "Qw3rxb76gKUGz6poEc2PrcGb1Y8hyQwEDuBZ9wJvyxU"
+      "switchboard": "9j8TBUTgQx8PBDgkfspYrxTWH2uLhRcTHorxYNuHDkRx"
     },
     "ARS": {
       "invertQuote": true,
-      "switchboard": "77F7VKoFVYsrHdDqcLJexJG6rSta7aokNdVrpGzhUhMs"
+      "switchboard": "FWKdiuS2VftBH91Hw29aNBQkDdd3mRresjQmGRFUjV3H"
     },
     "AUD": {
       "invertQuote": false,
-      "switchboard": "3MRKufMCWpB941AU6Sh19medtETJvBKkocbiiXV7Pc8i",
+      "switchboard": "2L11h6pt3h19mnRa9j3cFHpR3AhtYtDhQM2RP72cB1vS",
       "pyth": "3aR6kTksEFb2GsCHGBNtpvUpUJ1XzeA41RTnS4APD8oG"
     },
     "AZN": {
       "invertQuote": true,
-      "switchboard": "944FiE3MfFaQENi58WtUWsn1efMMpb2g4i9qvA1kSgGC"
+      "switchboard": "ADgtL939ES8nVxDZsNyQYxcZao2faxBuNh7bdTaA7ney"
     },
     "BBD": {
       "invertQuote": true,
-      "switchboard": "HaTwY4dpfvtwAFBcbuB3a9z8gzWP5r36PahGFVCokQmk"
+      "switchboard": "GFYWW824L84qRB9kLvhuBcMpQ36HDUx9JKQMyZtkh1cW"
     },
     "BDT": {
       "invertQuote": true,
-      "switchboard": "DWBaWVfdRG1hKxYtN2s1VUQ5tUF34NaGMo9i6LjMVxoU"
+      "switchboard": "3BJuLbDFi83gWtrUY81bxh2XtQKBii4RXhsfLQAvNbJW"
     },
     "BHD": {
       "invertQuote": true,
-      "switchboard": "6vze9F7v88atcPs2Y97gbzHbUHuaedPtAWuqwnXFvngQ"
+      "switchboard": "7LuF6umBi42ZQj82YuXupz8vDe7Gz19XA3pTDQyGFtjb"
     },
     "BND": {
       "invertQuote": true,
-      "switchboard": "715gnMdU1oGR64pUMKncSXz5qKCFdsLXmrCBJeZEa6WV"
+      "switchboard": "4q1mbWTy8DQu4dWPmQFK3VrqmvoH76ihern48CbwwHZL"
     },
     "BOB": {
       "invertQuote": true,
-      "switchboard": "6sdmXu3Cfqgt7VEQwUsERGhSEx947gs8umJ69CPRFpWF"
+      "switchboard": "6qxGMFQuft5q3eLfhcpmHWZ2zzmWhv3hHUKg5aebfUmb"
     },
     "BRL": {
       "invertQuote": true,
-      "switchboard": "8XZxf7GE1WnezdDtEaQfSo1QHqepQ8gqPpFpPkJCgUHd"
+      "switchboard": "BS36bB5DjrRgoVEWtrXpCY6zCfDcGaXsQBogLDaMRpkP"
     },
     "BWP": {
       "invertQuote": false,
-      "switchboard": "e6MPjp1eXswxYymS7Jnmxx4zWfJ19UcJCyrxZgvqYsP"
+      "switchboard": "8d22m2zsw9SH8qWwQmUfE1zvHJ4uFcAghaMUWuFqrYkC"
     },
     "BZD": {
       "invertQuote": true,
-      "switchboard": "GiFCFBai4grKvQSXmpgUMZ5MF8Qrp6VH41AKPErUfaog"
+      "switchboard": "6enG66zSbwe1FXGqjhJ2WQuvpBWtsk2XvwQD6jax655m"
     },
     "CAD": {
       "invertQuote": true,
-      "switchboard": "BdTpA4LUkTztNCmMDDcpP1JZFdoZx8bc3ss6NBoqa1z4",
+      "switchboard": "2R9ELfnS9H2FdSTmKWaNz7wLTWLUsRRxvLqsNwnhvbzJ",
       "pyth": "DLs1QkLjp92HGRU899J6eNjBn7VK3cLGg8NhMpqfJMjU"
     },
     "CHF": {
       "invertQuote": true,
-      "switchboard": "8kBr4oxG8kgucAa2duEfK2oytQKZnRtGFFaRtcuxbB7L",
+      "switchboard": "CX66tfzXayZDRYmvkY82bZhpvQ5xCcLM7k4xebT6Q1uB",
       "pyth": "9AzrhXCy2deJjX4ngNxDpLTCz44DSbtWHqah5q4UfFwx"
     },
     "CLP": {
       "invertQuote": true,
-      "switchboard": "Fg1uQwg2KCdv328ZhTmauWnXPTtrYMQ6V4LsivMVZ9WS"
+      "switchboard": "J7ivDF7suzaLASBNtYYDsGxjvbesUo7aHW4wZDUWmQs7"
     },
     "CNY": {
       "invertQuote": true,
-      "switchboard": "ByUJZp2fx1JcomC3c24PbYhVDrn9YXaUGeRCcLjX2gvs"
+      "switchboard": "9ok6egpzo4dJdE2PGZ22TyVgsHA4eygrhNrEoUau6nMw"
     },
     "COP": {
       "invertQuote": true,
-      "switchboard": "9PMtt2wFP9mDMHhxDyejGtKmdQSz4fuNLrGnqDTMxcTj"
+      "switchboard": "Hnr4zXgEtesDLkuXit2j2Y37qmaAnko3oSRHsaTbhApp"
     },
     "CRC": {
       "invertQuote": true,
-      "switchboard": "CKxfvg3gQxNSmdMK2CddDmtVMSdCpHhzmGiuAPouaw4u"
+      "switchboard": "326hym8iRz6BU6Wd3mMxwuJQMRq7xHRnyCJFgf7po25m"
     },
     "CZK": {
       "invertQuote": true,
-      "switchboard": "HitVcoBCgFpXFDeMDFRRbsgu1od4mgbyfZrRfz8v6UF2"
+      "switchboard": "D2PDFqsn2uosdHozTCQAa5Nov7MRyZJCCXwWEkdvyaUh"
     },
     "DJF": {
       "invertQuote": true,
-      "switchboard": "3BZ8ccEaDpw7z1GN24et9mwYu4WwPahzhi6sANTQDP66"
+      "switchboard": "7iAYzYpk7LRBeeW6F6eRCfEQKZQqX9cZ7hWvkSerCX3y"
     },
     "DKK": {
       "invertQuote": true,
-      "switchboard": "KegMn9FwL4oiaVSck5bntMfVy2N2w3NswFs2x61kUVT"
+      "switchboard": "2PxP1ZyGX2X2gY5954GZfCaAypUi46B76B483HJumqtn"
     },
     "DOP": {
       "invertQuote": true,
-      "switchboard": "J8vdv1phNRPZS21ZRKaTvgtEqg5PUi5oRPqgD8ZKwuGS"
+      "switchboard": "anebXKzk3XQgJFkNPwYrsvf7mRkhSHqFoTJUBZjeCuZ"
     },
     "DZD": {
       "invertQuote": true,
-      "switchboard": "9unmB1v81M8FVh4GRa69k37MKDACiAfL8jmb6dUKQ9nj"
+      "switchboard": "EgJPDzipp1yeTgaUqF5kG7Cvja9zS19mAPxtapsxCjCo"
     },
     "EGP": {
       "invertQuote": true,
-      "switchboard": "BuL2pWDeX5iHbxNBVVyJgjPUwCdt8FTYYLAAHB3iH2Hd"
+      "switchboard": "4adsj2gwgMcchtKHJDXF4dgiD2SzupM5c4YJYbmnm8zt"
     },
     "ETB": {
       "invertQuote": true,
-      "switchboard": "Hp39LpJ3zKX8YxxPjruSfounBeqG3tYZFcG6p7oBnEf3"
+      "switchboard": "Km2FK7n8sZ2JKGGupyEyboH2HpKXkrw7bYNvAvKX9km"
     },
     "EUR": {
       "invertQuote": false,
-      "switchboard": "DHb8B35WwepmnFbLHGztdK8Y1ReHzetmAnrsDkfXqLR6",
+      "switchboard": "4thFkd6B3joBa4hrvfnFSinFFt7XesyHSTAequE2rqMd",
       "pyth": "E36MyBbavhYKHVLWR79GiReNNnBDiHj6nWA7htbkNZbh"
     },
     "FJD": {
       "invertQuote": false,
-      "switchboard": "2bmJinBqF7NWfAwo1VvgQKSVAL6Pg98djf7kqpPrpQFb"
+      "switchboard": "GVHi5GxTfvNTATV2uq4YQ1JGYopt3iUM8mKGs8LMhot8"
     },
     "GBP": {
       "invertQuote": false,
-      "switchboard": "4PEZZP6j2UUaAgVuDbUCJDzy9CHyyC5f3VT2VSWRsRAu",
+      "switchboard": "6bu1Q9FD75586PcaHXYcwzBjVjFPvzgdL9KbZEzdjn5S",
       "pyth": "DhmUMEyq1hmEAGpifaH8HzfG1NqipvrVhBZgBog7NCb6"
     },
     "GEL": {
       "invertQuote": true,
-      "switchboard": "EJPXMsihF4WquEdw5Eo5Vqu6PEoPhRySmWyG9oG4U5mm"
+      "switchboard": "8dqg8xLPJc6QCpwrQFUMpQzTQfERzSZW3JEZt5VYcJZg"
     },
     "GHS": {
       "invertQuote": true,
-      "switchboard": "HY95r3JFVJQxNYUiZFYhrFUCdxzeCSQwP7ynZSCpvYng"
+      "switchboard": "8pFDNwyU5W9rAQj6Seu5vRrDfjRWLQsuKbUvMQfsJdcG"
     },
     "GMD": {
       "invertQuote": true,
-      "switchboard": "3ZPb4gouJaBqwMCm4s57bnX9KRAY75Lv7sF3eKuTcJC1"
+      "switchboard": "9pZdLRoC8jeKpuL4dWEHFciyYxbfZ8bhZXy43BwGrBa9"
     },
     "GNF": {
       "invertQuote": true,
-      "switchboard": "F6xTHJhCvnNWVkMX6oLU36BpPSAtt9Nt5CSCvcHxQSA2"
+      "switchboard": "3mJ7E4jPdPkfxtfMdMi3vgt3XzeUrGFgMHHBQEHeKc9Q"
     },
     "GTQ": {
       "invertQuote": true,
-      "switchboard": "2yvGFVtAbLMsWdQwSV5k7miwPSTiop5AZcgtpWpuPJeU"
+      "switchboard": "4gzhxMRqfyKEb3dfCp9FvaiS2YxjmnErSH8GAuC7BQd7"
     },
     "HKD": {
       "invertQuote": true,
-      "switchboard": "QshS564WLUcp8iXYtquVioLiWCAszjxL3skYpV252nx",
+      "switchboard": "3Who3WGcuto1h349mSN783Vr1vbzvqYWZiKp4e1fufcb",
       "pyth": "FPt3saZ3o2rTxh4qvS53J4eqkcsesr5x7hXQG15wALtQ"
     },
     "HNL": {
       "invertQuote": true,
-      "switchboard": "CXBoXMC6nrgQddmPTfPxnfK9JPvGNM5QDvPg1zCLFRRD"
+      "switchboard": "CLqaLE8H5kjcYC8mZgRCbSUPDVNQ9nD5G8CV4kSLEvmY"
     },
     "HTG": {
       "invertQuote": true,
-      "switchboard": "EAFrs1G7hwLxfwFceVXH3S8pL93zfUFmZi9dFoKA9hrs"
+      "switchboard": "5xBG2oyZjdmGQXbPLVVvNALJKUdGoJtmZTqQYsc5Tdyf"
     },
     "HUF": {
       "invertQuote": true,
-      "switchboard": "AB6UhYRnVgzsRJ7N7aKfs9FxAJZRWuYGXtRFHDu8oy8T"
+      "switchboard": "47jz11oNrnhVkiMiQkg3WGQUNAjUHtHxHGyYjwmMXsRS"
     },
     "IDR": {
       "invertQuote": true,
-      "switchboard": "BvLQdQDuo77tbchTPZj7LcyLMUGJNq9YUwjCspzT8nwA"
+      "switchboard": "9bTNWJ7bg9jp6nMBjwUvowjMGDwGd4hT9HDjhPVPkLU2"
     },
     "ILS": {
       "invertQuote": true,
-      "switchboard": "9jEF4jWEb6RSnCLESJLiEzzLSuoyammpPrw4NGnNpFKN"
+      "switchboard": "HWK34DhA9BAxF4muoRMzKHmUvPQQCR616zHZL4BYCYQH"
     },
     "INR": {
       "invertQuote": true,
-      "switchboard": "8L2kQgBZJ1FPeY1vVgviqXvEzmzEFGfDfxo1wmM6fzHg"
+      "switchboard": "D2npboxqovRaDUp4waiqLSBDJtMZUvqkVcVrucza8Jq4"
     },
     "ISK": {
       "invertQuote": true,
-      "switchboard": "9sKHwPD9yx62J3UkSKDPvu1nYBEsByoD2bG6sbkZNoJ"
+      "switchboard": "AcBqAXu8jQZiUrZ2fx8FZxbFJAZ3ggq1vDdFmpeJ89bR"
     },
     "JMD": {
       "invertQuote": true,
-      "switchboard": "Bmzf5vjKkFSw7Loyd6h3fBe1UGgR1Pnvs3awrXFhx8C3"
+      "switchboard": "QmT8SPPX1TELHrsJ9TCZawHcvYKYMHyNz1EUHoos8QM"
     },
     "JOD": {
       "invertQuote": true,
-      "switchboard": "Dw23Xt4P2VEgUpJAGPmrGRYoHyk7iQBU2M1EcRsmk9jx"
+      "switchboard": "5DavARRjeqqiNTM5nSYVge3cbsE55xwb75VL4rs9WrAJ"
     },
     "JPY": {
       "invertQuote": true,
-      "switchboard": "5FbuTbNy4cLFJFuFCgqQTXLWXFK6czL2cC4mjbpStAGX",
+      "switchboard": "3oJcDYVP4RPkCQYj21rbjuxKuUveKEqbi232Nb3kzmJG",
       "pyth": "3CVi3EEprs1zeKhv5kw9EpRDv1hNfvpunQ98gex27Prd"
     },
     "KES": {
       "invertQuote": true,
-      "switchboard": "GpJpcGSVvem8ZyFt5qmgoZDgsVoKp71MsTcxoxcRdDCw"
+      "switchboard": "DNPreL5W4YJvMj6CSXWPR4yqqW7fwigzsETJZ4FLzkBC"
     },
     "KGS": {
       "invertQuote": true,
-      "switchboard": "BQg9auVQzCkeStmnpRmBRKDxVCrLGctyo8bp3ppPCJph"
+      "switchboard": "49wA6GrRh9QwVo64z4ggvhQuqagKZLgXLVCAbm3MW8xo"
     },
     "KHR": {
       "invertQuote": true,
-      "switchboard": "9mmudY1wkhc2Y3J8xSYiBjHF8pFFy72u6MyYAC7yDXtv"
+      "switchboard": "2wKAdubRwvSNQyLPcEewziQ33kGJebWSgSZAHP3BPj8H"
     },
     "KMF": {
       "invertQuote": true,
-      "switchboard": "GQrV6JS7n9uNJyKF8Y4hTb3EqxEQV5knMDPBZwFCQFw"
+      "switchboard": "H2VSHNj7qm5HtQ93g9gzyjHyxeA9GVbfbvCb3y4CEw7m"
     },
     "KRW": {
       "invertQuote": true,
-      "switchboard": "A8CJfMGvGhvkDs9xLNahLy3zcMWb28BLQtY9DLeYbhqb"
+      "switchboard": "EJGx43P2BGr6yjdFsFdU7u6sTfniUHRCz8btE5Zb8Frd"
     },
     "KWD": {
       "invertQuote": true,
-      "switchboard": "8TBvZ9SGepB7MfjQd7bTgcriq9MnJMicBRzQyhcdoUto"
+      "switchboard": "AJr28p5896sDLCtH5xouqJ9QU5me34NPHRYaoHCR3gZP"
     },
     "KZT": {
       "invertQuote": true,
-      "switchboard": "4JQibNLuKr9aFCgw3UgBDjehfLQ4ntEnoNKj55mr14go"
+      "switchboard": "2EmPJ7tYDD3BD79D98nXiiP62r4g3n5un4uQBBQxdjNf"
     },
     "LKR": {
       "invertQuote": true,
-      "switchboard": "31KyTc2WoxR5pvxz87N9B5yqy7CXU5WNVMacmEZe6h9H"
+      "switchboard": "4v2P9STUx6ohZkogS81w2wasepPZp9BSwdhXvHGvaUEg"
     },
     "LSL": {
       "invertQuote": true,
-      "switchboard": "8oeUJSgfsk2EDzbsCF697ZXwtgRT7HdbNtyfZcNSWvsL"
+      "switchboard": "2WZDZTCegEF6fATcad2LKeyfovDD2Ljr7AhpSRizR4s6"
     },
     "MAD": {
       "invertQuote": true,
-      "switchboard": "5JCvJzyX7cG2eR5zMHb8kvdpEKAZ8eFcB783KJsywXKk"
+      "switchboard": "2TZGeFvRFADXZSzVsPPHoKyGqXzHiGehFUxtiBvUE2fr"
     },
     "MDL": {
       "invertQuote": true,
-      "switchboard": "4LApzQuVsSASivQkoqui2Wai3CGRZQDe77dvdanAJMR9"
+      "switchboard": "5s6zDTVZB9gBEHvh7292hHxZkR8S3ij8CDMHQk7DY76X"
     },
     "MGA": {
       "invertQuote": true,
-      "switchboard": "7nvdRLNXusN61FcT4ouGsN5sEKPp4cZN6TFVUaigavmY"
+      "switchboard": "2gzgwbZ3mEMnUCUcuZxyZpuD4Rcui9wnzMyq5dvkEu44"
     },
     "MMK": {
       "invertQuote": true,
-      "switchboard": "HgJdunUuDdokSFtJooDRBJfD9oekNbNfLnCZozSp5fB9"
+      "switchboard": "Dt7iF7avNx1PhDoo3kmUsLg4prXvSBtcgpzpWRfRujW"
     },
     "MNT": {
       "invertQuote": true,
-      "switchboard": "BLNVwTFJsgVoWetRj48V8tppVWtYBLFDqrsd7vjnP6Mb"
+      "switchboard": "D2CiH2rYTR76Dy3XL2PdBcrUJMPRWButi82b8Phto4b4"
     },
     "MOP": {
       "invertQuote": true,
-      "switchboard": "5r5ZGqQwL3it91gWW6xJ8KnCv4aPjywbQgqkMisgJux1"
+      "switchboard": "yUZRHYx4HNdBCpzxWc5e7wMSxWoZtZvtJnQDjkEQnfb"
     },
     "MUR": {
       "invertQuote": true,
-      "switchboard": "96rLGwA88aTGJyhEwxrMTsX4vrzjJdkZG4msA8KyUeZy"
+      "switchboard": "CywgW7rAXaMpjzpu5QjBdB21VCEzsSaW1r1E3Uj7DcXi"
     },
     "MVR": {
       "invertQuote": true,
-      "switchboard": "8hbuMoVKPsbTgBwXQyQJynGfWDfvRimbCvYd68oK91XS"
+      "switchboard": "8C6FRUpr7ZZ2w7DJupGkdjm7zMNgnZGC7SL6WGrWw42k"
     },
     "MWK": {
       "invertQuote": true,
-      "switchboard": "Fg66RX3oMfQCiqG7VGBej8s5j8LLpvZEev7RhFRYu676"
+      "switchboard": "5gsrWsNGqSU5bMvxAudcygexd59vAmcZv6GMoxVpm1xX"
     },
     "MXN": {
       "invertQuote": true,
-      "switchboard": "8drph7RjZ6XM7qen62iAzCtRBb7fovrEXd1qrkxw17ex",
+      "switchboard": "4UssZ7rt18MAgQEQJV9YnUnb5Naz4gQu66VpqbPKxymM",
       "pyth": "E1n8HR9SLEqp5SxhGg2K5MuYMJNL3rvY8HS2TqvRjWpc"
     },
     "MYR": {
       "invertQuote": true,
-      "switchboard": "5Nia7wDdLtw9XmuYfiPA5PMPuEob4UPgpQUtWYLTgjw3"
+      "switchboard": "6JWu1rGgM3WQFMhWuwPrczFpxMDnz6QHVCE3D2VhfXaj"
     },
     "NAD": {
       "invertQuote": true,
-      "switchboard": "FxJ11y6uPD6NjQe2EVRD8kBpnuxjGCjyQHcUyiXAdq2v"
+      "switchboard": "2psResurEyG6G9wJyDA4HtkYSxmyb2Pp9E91GszHzRRy"
     },
     "NGN": {
       "invertQuote": true,
-      "switchboard": "FeHUjFKKCCanzdeiN4SgxERXeft1V6KFL2FmFCzoUuM2"
+      "switchboard": "7JKKwqjZoQv7k1FX1K4bwQFtWqZcmqdWQL596dSybUYq"
     },
     "NOK": {
       "invertQuote": true,
-      "switchboard": "G6eViLa8kxv9b1wCFFb7dbE5uNBngcJcZe5nCVTGRYqQ"
+      "switchboard": "5EH3BjKtpdVnCnRsLcc9v7KJyrnbGRzCkogm8bXTY3Pr"
     },
     "NPR": {
       "invertQuote": true,
-      "switchboard": "13nuk76btPeFiKJJqfiHipLVxaQfaVtfLmLiao7vQVQM"
+      "switchboard": "5VHhHTvXHJx7eQDjjiUbEB4MJG6vUfP6Q3iNxGN52W9K"
     },
     "NZD": {
       "invertQuote": false,
-      "switchboard": "DDWDAw4KC1yHLM7QYD2z9vpvo3Q4cmzwAcekRfPQe6EH",
+      "switchboard": "8xbgXynHC2WvjqKJdAKyVnby9tS7HNgWTmdPCPB4wBMp",
       "pyth": "FUkkjDVtdBpQrzSuYQfcwLAFXRd4YqA3HkKj56w7xZWY"
     },
     "OMR": {
       "invertQuote": true,
-      "switchboard": "73KzptxMFzmB7qYNtgByGNyDwkpuLhtTJ4jxAMGBDnRF"
+      "switchboard": "dd8znRSRWcqTYdb9EXr97Z35r3XiWFX2oMSmQWprWjy"
     },
     "PEN": {
       "invertQuote": true,
-      "switchboard": "7dUHcRADQpsMHGhnLNnRJbjwjecFAyMd4BfiX8N4AbD7"
+      "switchboard": "92DjZdPmQAphn7QFUo9yruZ6tXW2oP91ebrZL91QdDx3"
     },
     "PGK": {
       "invertQuote": false,
-      "switchboard": "7HLB3bW6Gy2uTZAYaT4Bxx7rtXDqX3K5n9shCtFgBrJK"
+      "switchboard": "A34GmFL8WLckbpKbtwp8F2aiZ3HuBJx1AxdDTdGcUfc4"
     },
     "PHP": {
       "invertQuote": true,
-      "switchboard": "GZezwhxg75xxUkjWfbMGiTsDGky75QbMabLaUwRHMmVZ"
+      "switchboard": "6PYqniaS5XqYknAVDf5aPFXmaxd658d6qre8Hjx8XhsG"
     },
     "PKR": {
       "invertQuote": true,
-      "switchboard": "TFCWd1r3LFyMtNbNfBwnmrzpB1igdUsyii2HvnodhLi"
+      "switchboard": "9HRMPWA1Ncavav1bUBhsa1dpCrKFffcXz3bSAD7pvPc2"
     },
     "PLN": {
       "invertQuote": true,
-      "switchboard": "3dp4WoPrTnWtNBPMqgF92S2rmhhZdYVJ5xbHFGMdMwJM"
+      "switchboard": "AZu93JMYUrfJxjWBa3dTohcNXsfYz16XJXjghMgQrRE2"
     },
     "PYG": {
       "invertQuote": true,
-      "switchboard": "2yyT2n2BBvTzyDpDvokPLQErNcmP1yxLZnkPHir5dBEy"
+      "switchboard": "DEiY4QNuSy25xfTLbAXF6wSaGsw5BNkwUu2sbosyQ7fG"
     },
     "QAR": {
       "invertQuote": true,
-      "switchboard": "Hqq5xMuzEvmiGGASRZNPB6wc2PJcSYbXZfMpzupUw4t3"
+      "switchboard": "9grVU4YYWousAshhSsz3TTRFqaqrSZDSBfwCSKMmzzUP"
     },
     "RON": {
       "invertQuote": true,
-      "switchboard": "4eJ2PPMbcUsqyWSkGhKSiSvU1Y55wLstvzk2khTwcTRu"
+      "switchboard": "78RnkRWPht66JcMQG8JKkhJ3c3c71hSu1vzDNbYEhaiN"
     },
     "RWF": {
       "invertQuote": true,
-      "switchboard": "J1unpi3hSa1Gr5cuDmbxAjJD2th4MGYBFXAnWwDiHX51"
+      "switchboard": "7qhNbv38LoeqxRsSNTbPiT78qZebkrtXsCTo4GyyUtQW"
     },
     "SAR": {
       "invertQuote": true,
-      "switchboard": "5aoqjvziX4WtXokcN6w5J95jeFMBrWtuhJZZVJRi9XCx"
+      "switchboard": "9uqibTFs4RCU4Y8CXwTJRw6vSYvEw6gmGe8qD3o49zM4"
     },
     "SCR": {
       "invertQuote": true,
-      "switchboard": "4qQeZCpKgeEF7msvz2e6vFyYVkqcvVjz5pToY8jh9SF2"
+      "switchboard": "F986hnEsKJPQuEdYvBxUie1uBfMch3jD1zXZNWvMQhnw"
     },
     "SEK": {
       "invertQuote": true,
-      "switchboard": "7JrZkwH8qwDXawYjeNUJ34p1ZBB5taVwFnsDqvd5ypcm"
+      "switchboard": "8sVDtnUX7BaieRx7w9Lz5zDWCngo5aKRMW9JFKbzM9fA"
     },
     "SGD": {
       "invertQuote": true,
-      "switchboard": "BHFic7J2YUgNo5wZCeiujowKTFhJHDZbsk77YHN8KNA6",
+      "switchboard": "2ZW3ZiepVadCbPPAtGNQ7xQBmaZ8xdx215VcFZYpJBnc",
       "pyth": "7csi4gj91mycrtkhjdiKjJwoxavP84PMxnrtkqGafkVZ"
     },
     "STN": {
       "invertQuote": true,
-      "switchboard": "CKh1YWLDbNQZC2tvbag7bk4wZ5TD7787QL1jgY7Qpz7u"
+      "switchboard": "8RZapVqcCYc9YEg31qjDicGgqgxob3QEot8n6mmnKWcV"
     },
     "SVC": {
       "invertQuote": true,
-      "switchboard": "9SzYkn3D8t7PYWhKwviVwV5UtHysuEMLTJTxKoLNFDPn"
+      "switchboard": "HnyBLyBdXqRkerd633zw5z39nFYXwqJNk1pqSdti6Qnm"
     },
     "SZL": {
       "invertQuote": true,
-      "switchboard": "4GjfwaAcrqpWeUxHb66TzWZBTD1wFSXnrqgXAbsXfrMo"
+      "switchboard": "aViCGuSVo759whGsjzDNnviUBhcyb37iTHTzkLVPoBV"
     },
     "THB": {
       "invertQuote": true,
-      "switchboard": "EaP1dQsk9iXR2mbN6rNacFNvGKBtN9ce758ezcYsRn2S"
+      "switchboard": "5NzPS1hdhfhzBC2WT3zCoWqDHUriWRrjUwiFL3F9cp3x"
     },
     "TJS": {
       "invertQuote": true,
-      "switchboard": "Fj1oJjSC9XPWnVG1n94nJDm8xopPRCamsrTmjZ2bdXGW"
+      "switchboard": "4JRyxWabM4unYuJAP1fFudzyFc2yt718iXZMFBthruWN"
     },
     "TMT": {
       "invertQuote": true,
-      "switchboard": "F3gjwRbpmA2nhc5eYC4oDQbUF9Upo1skxbXDmRCm7Luj"
+      "switchboard": "2wQ3KjYKKBhLgLJYkeZRerqJV1YqPoKp9co62669KGh9"
     },
     "TND": {
       "invertQuote": true,
-      "switchboard": "CsPrK2P8tN9QYQfhwSQG3EJ8ZUzXT73ABjUj2DAaLsCQ"
+      "switchboard": "4dCCYHqTd75mFkzn5ZU6E3CSRa941bra5f6vtx9p2W4W"
     },
     "TRY": {
       "invertQuote": true,
-      "switchboard": "9CDLqxdYirWZJShaK8o4bvHh2v3Tz5HzHFLBSbQcsmnW"
+      "switchboard": "45uR2d8HHU7B7ECVvcjx5eeMiaivRFLpmKNp7muGfQWq"
     },
     "TTD": {
       "invertQuote": true,
-      "switchboard": "78gM2GAQ5UBLcuz8XR58KeeqpuK1t1qeoTLrH5DoBFSt"
+      "switchboard": "4se5fxtsBt5F6Ve7wgmiydB93gTqojuV4p9ijU7d96hb"
     },
     "TWD": {
       "invertQuote": true,
-      "switchboard": "EeJ1D5AWDyPC2bAXgYjycF8Nm9vpmS2oSF5dvypmXjmZ"
+      "switchboard": "27LEvmPiHoMhrenKFMLNRq2RfgyUyqGJq6imcpyQdd69"
     },
     "TZS": {
       "invertQuote": true,
-      "switchboard": "5kERjDkaUvSqjpyKyxgBGRiy5949QYMVUyBiN19zHaxb"
+      "switchboard": "EtDTugAtLL7PfruDSnwJRhnAQGH6Cc4v98fxV4CNRUJx"
     },
     "UGX": {
       "invertQuote": true,
-      "switchboard": "9BmeZW9EiZDh1yAgfWsKn38kZJ8dLFLmAS2VwL68k2Tc"
+      "switchboard": "8fAmZ3cywg5AaoBAEvgM65yuC9Qvu6dWraGnGjj48o5h"
     },
     "USD": {
       "invertQuote": false,
-      "switchboard": "2GP82eSMAYQ3cWviqpjV3nf8J3HUQNdmqLNCeaHXwkvb"
+      "switchboard": "BpDYLYDtA1Ri19WyaVb4BBgztWxCjnoxXsvm6o6WP2B5"
     },
     "UYU": {
       "invertQuote": true,
-      "switchboard": "DoPVntiwaWgcR5qQZWxjJ6Hc8rg2JBBHnKK7pGsyb2gM"
+      "switchboard": "PRKRbx67gwVU5aHTdLkkY8zCHpgiDoRXMLiknpUt6Yi"
     },
     "UZS": {
       "invertQuote": true,
-      "switchboard": "Ba2v87iEamg6p2fBX2JPpUmtcVAuY8SXKudKtECHV7Ru"
+      "switchboard": "Gp4AVtudvj3nUWox9GRJparRo7uC1PtHBuLC1PWUaAHT"
     },
     "VND": {
       "invertQuote": true,
-      "switchboard": "6VSb7zbq6VtTz2SPz2qdZ7wwSuXzJLXeRGmTZLRjSJ7p"
+      "switchboard": "64f1Ke6qJTUdCRQPN6j8WuHx51wVFDV3jyPYc86fbkjo"
     },
     "VUV": {
       "invertQuote": true,
-      "switchboard": "7XSmAJHYXLh1WguubhyJjfymRKuJPGQbkjkd68mZbXoJ"
+      "switchboard": "2Gi4zL4hgcQDMWZ5Z1KWrDJez9Gf9zx8qKa9CoXRwSzv"
     },
     "XAF": {
       "invertQuote": true,
-      "switchboard": "FfBy2YoPZEZD2DGHB5sKPDUam1ZuM91yhhvDpiQ9sdj5"
+      "switchboard": "EBcjSonio9YznyX9uJhUPoxPbjuuvnoDDga7M5M62gDg"
     },
     "XCD": {
       "invertQuote": true,
-      "switchboard": "HUqPH4FwTgbH9pupHDwqAbjSjHPGMEruBgbKSAg1h1p9"
+      "switchboard": "8wXjy5aeinG3QEa5pkTnPu8q6A2XAJUVjhteQ4P9PxxS"
     },
     "XOF": {
       "invertQuote": true,
-      "switchboard": "G7aEfREbnsCRPqsApWySWTUviypZ97a1KtDExhM8Tp5B"
+      "switchboard": "6gBdqJZLsmgB3T8huWEwmjdTesZFoLHsD8YEekb7cgr5"
     },
     "ZAR": {
       "invertQuote": true,
-      "switchboard": "ERCywfUbC9bCN1t5HWXpnH9CegTjP884N2SZmw5B7FmV"
+      "switchboard": "25rPEPnctPNdv5LZL3DCPGKki1kM4jCWJ8VTG4vkkRBr"
     }
   }
 }
