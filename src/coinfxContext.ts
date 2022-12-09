@@ -35,6 +35,7 @@ export class CoinfxContext {
   public async getContext(ccy: string): Promise<SolanaContext> {
     const {
       adminPubkey,
+      permissionedSwapPubkeys,
       authorityPubkey,
       cpammProgram,
       cfxProgram,
@@ -160,6 +161,7 @@ export class CoinfxContext {
 
     return {
       cluster: this.cluster,
+      permissionedSwapPubkeys,
       currency: ccy,
       adminPubkey,
       authorityPubkey,
@@ -267,8 +269,10 @@ export class CoinfxContext {
   }
 
   private decodeConfig(json: { [key: string]: any }): Config {
+    const permissionedSwapPubkeys: string[] = json["permissionedSwapPubkeys"];
     return {
       cluster: json["cluster"],
+      permissionedSwapPubkeys: permissionedSwapPubkeys.map((key) => new PublicKey(key)),
       adminPubkey: new PublicKey(json["adminPubkey"]),
       authorityPubkey: new PublicKey(json["authorityPubkey"]),
       cpammProgram: new PublicKey(json["cpammProgram"]),
