@@ -8,24 +8,24 @@ import {
   RiskManager,
   SharedDank,
 } from "./seeds";
-import { sortByPubkey } from "./utils";
+import { Currency } from "./types";
 
 export const coinfxManager = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy], cfxProgram);
 };
 
 export const riskManager = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, RiskManager], cfxProgram);
 };
 
 export const managerUserPermissions = async (
-  ccy: string,
+  ccy: Currency,
   adminPubkey: PublicKey,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
@@ -36,7 +36,7 @@ export const managerUserPermissions = async (
 };
 
 export const usdxUsdOracleManager = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
@@ -46,56 +46,56 @@ export const usdxUsdOracleManager = async (
 };
 
 export const fxUsdOracleManager = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramOracleManager.FXUSD], cfxProgram);
 };
 
 export const solUsdOracleManager = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramOracleManager.SOLUSD], cfxProgram);
 };
 
 export const cfxUsdxDa = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramAuction.CFXUSDX], cfxProgram);
 };
 
 export const usdxCfxDa = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramAuction.USDXCFX], cfxProgram);
 };
 
 export const dankCfxDa = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramAuction.DANKCFX], cfxProgram);
 };
 
 export const usdxDankDa = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramAuction.USDXDANK], cfxProgram);
 };
 
 export const cfxMint = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds([ccy, ProgramToken.CFX], cfxProgram);
 };
 
 export const dankMint = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey,
   sharedDank: boolean
 ): Promise<PublicKey> => {
@@ -106,8 +106,12 @@ export const dankMint = async (
   );
 };
 
+export const lpMint = async (token0: PublicKey, token1: PublicKey, cpammProgram: PublicKey): Promise<PublicKey> => {
+  return deriveAddressFromSeeds([token0.toBase58(), token1.toBase58()], cpammProgram)
+}
+
 export const dankMintAuthority = async (
-  ccy: string,
+  ccy: Currency,
   cfxProgram: PublicKey,
   sharedDank: boolean
 ): Promise<PublicKey> => {
@@ -133,9 +137,8 @@ export const swapAccount = async (
   token1: PublicKey,
   cpammProgram: PublicKey
 ): Promise<PublicKey> => {
-  const [first, second] = sortByPubkey(token0, token1)!;
   return deriveAddressFromSeeds(
-    [Cpamm.SWAPINFO, factory.toBase58(), first.toBase58(), second.toBase58()],
+    [Cpamm.SWAPINFO, factory.toBase58(), token0.toBase58(), token1.toBase58()],
     cpammProgram
   );
 };

@@ -2,7 +2,9 @@ import { PublicKey } from "@solana/web3.js";
 
 export interface Config {
   cluster: SolanaCluster;
+  permissionedSwapPubkeys: PublicKey[];
   adminPubkey: PublicKey;
+  authorityPubkey: PublicKey;
   cpammProgram: PublicKey;
   cfxProgram: PublicKey;
   usdxMint: PublicKey;
@@ -11,6 +13,7 @@ export interface Config {
 
 export interface OracleConfig {
   cluster: SolanaCluster;
+  acceptedDelay: number;
   usdx: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
@@ -20,15 +23,18 @@ export interface OracleConfig {
     switchboard?: PublicKey;
   },
   fx: {
-    [currency: string]: {
-      invertQuote: boolean;
-      pyth?: PublicKey;
-      switchboard?: PublicKey;
-    }
+    [currency: string]: FxOracle
   },
 }
 
+export interface FxOracle {
+  invertQuote: boolean;
+  pyth?: PublicKey;
+  switchboard?: PublicKey;
+}
+
 export interface SolanaContext extends Config {
+  currency: Currency;
   coinfxManager: PublicKey;
   cfxMint: PublicKey;
   dankMint: PublicKey;
@@ -56,6 +62,8 @@ export interface SolanaContext extends Config {
 export interface UsdxCfxSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
+  lpMint: PublicKey;
+  lpTokenAccount: PublicKey;
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
@@ -69,6 +77,8 @@ export interface UsdxCfxSwap {
 export interface UsdxDankSwap {
   userPermissions: PublicKey;
   swap: PublicKey;
+  lpMint: PublicKey;
+  lpTokenAccount: PublicKey;
   usdxInfo: {
     mint: PublicKey;
     reserve: PublicKey;
@@ -87,6 +97,7 @@ export interface UsdxUsdOracleManager {
 
 export interface FxUsdOracleManager {
   oracleManager: PublicKey;
+  invertQuote: boolean;
   pythOracle?: PublicKey;
   switchboardAggregator?: PublicKey;
 }
@@ -100,3 +111,118 @@ export interface SolUsdOracleManager {
 export type Env = "dev" | "pre-prod" | "cust-sandbox" | "prod";
 
 export type SolanaCluster = "devnet" | "mainnet-beta";
+
+export const CURRENCIES = [
+   "AED",
+   "AFN",
+   "ALL",
+   "AMD",
+   "ANG",
+   "AOA",
+   "ARS",
+   "AUD",
+   "AZN",
+   "BBD",
+   "BDT",
+   "BHD",
+   "BND",
+   "BOB",
+   "BRL",
+   "BWP",
+   "BZD",
+   "CAD",
+   "CHF",
+   "CLP",
+   "CNY",
+   "COP",
+   "CRC",
+   "CZK",
+   "DJF",
+   "DKK",
+   "DOP",
+   "DZD",
+   "EGP",
+   "ETB",
+   "EUR",
+   "FJD",
+   "GBP",
+   "GEL",
+   "GHS",
+   "GMD",
+   "GNF",
+   "GTQ",
+   "HKD",
+   "HNL",
+   "HTG",
+   "HUF",
+   "IDR",
+   "ILS",
+   "INR",
+   "ISK",
+   "JMD",
+   "JOD",
+   "JPY",
+   "KES",
+   "KGS",
+   "KHR",
+   "KMF",
+   "KRW",
+   "KWD",
+   "KZT",
+   "LKR",
+   "LSL",
+   "MAD",
+   "MDL",
+   "MGA",
+   "MMK",
+   "MNT",
+   "MOP",
+   "MUR",
+   "MVR",
+   "MWK",
+   "MXN",
+   "MYR",
+   "NAD",
+   "NGN",
+   "NOK",
+   "NPR",
+   "NZD",
+   "OMR",
+   "PEN",
+   "PGK",
+   "PHP",
+   "PKR",
+   "PLN",
+   "PYG",
+   "QAR",
+   "RON",
+   "RWF",
+   "SAR",
+   "SCR",
+   "SEK",
+   "SGD",
+   "STN",
+   "SVC",
+   "SZL",
+   "THB",
+   "TJS",
+   "TMT",
+   "TND",
+   "TRY",
+   "TTD",
+   "TWD",
+   "TZS",
+   "UGX",
+   "USD",
+   "UYU",
+   "UZS",
+   "VND",
+   "VUV",
+   "XAF",
+   "XCD",
+   "XOF",
+   "ZAR"
+] as const;
+
+type CurrencyTuple = typeof CURRENCIES;
+export type Currency = CurrencyTuple[number];

@@ -1,9 +1,11 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
-import { readFileSync } from "fs";
 import { PublicKey } from "@solana/web3.js";
-import { SolanaContext, Config, Env, SolanaCluster, OracleConfig } from "./types";
-import { decodeObjectToPubkeys } from "./utils";
+import { SolanaContext, Config, Env, SolanaCluster, OracleConfig, Currency, CURRENCIES } from "./types";
+import { decodeOracles } from "./utils";
 import * as Pda from "./pda";
+
+import devConfig = require("./config/dev.json");
+import devOracleConfig = require("./config/oracles/dev.json");
 
 export class CoinfxContext {
   public env: Env;
@@ -13,7 +15,7 @@ export class CoinfxContext {
 
   constructor(env: Env) {
     this.env = env;
-    this.cluster = this.getCluster(env);
+    this.cluster = env == "prod" ? "mainnet-beta" : "devnet";
     this.config = this.readConfig(env);
     this.oracleConfig = this.readOracleConfig(env);
   }
@@ -26,13 +28,19 @@ export class CoinfxContext {
     return this.oracleConfig;
   }
 
-  public getCluster(env: Env): SolanaCluster {
-    return env == "prod" ? "mainnet-beta" : "devnet"
+  public getCluster(): SolanaCluster {
+    return this.cluster
   }
 
-  public async getContext(ccy: string): Promise<SolanaContext> {
+  static parseCurrency(ccy: string): Currency | undefined {
+    return CURRENCIES.includes(ccy as Currency) ? ccy as Currency : undefined
+  }
+
+  public async getContext(_ccy: string): Promise<SolanaContext> {
     const {
       adminPubkey,
+      permissionedSwapPubkeys,
+      authorityPubkey,
       cpammProgram,
       cfxProgram,
       usdxMint,
@@ -40,6 +48,10 @@ export class CoinfxContext {
     } = this.config;
 
     const { fx, usdx, sol } = this.oracleConfig;
+
+    const ccy = CoinfxContext.parseCurrency(_ccy);
+
+    if(!ccy) throw new Error("Not a valid currency")
 
     // CFX PDA's
 
@@ -77,17 +89,19 @@ export class CoinfxContext {
       dankMint,
       cpammProgram
     );
+    const usdxDankLpMint = await Pda.lpMint(usdxMint, dankMint, cpammProgram)
+    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
+      adminPubkey,
+      usdxDankSwap,
+      cpammProgram
+    );
     const usdxCfxSwap = await Pda.swapAccount(
       cpammFactory,
       usdxMint,
       cfxMint,
       cpammProgram
     );
-    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
-      adminPubkey,
-      usdxDankSwap,
-      cpammProgram
-    );
+    const usdxCfxLpMint = await Pda.lpMint(usdxMint, cfxMint, cpammProgram)
     const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(
       adminPubkey,
       usdxCfxSwap,
@@ -149,9 +163,16 @@ export class CoinfxContext {
       true
     );
 
+    const usdxDankLpTokenAccount = await getAssociatedTokenAddress(usdxDankLpMint, adminPubkey);
+
+    const usdxCfxLpTokenAccount = await getAssociatedTokenAddress(usdxCfxLpMint, adminPubkey);
+
     return {
       cluster: this.cluster,
+      permissionedSwapPubkeys,
+      currency: ccy,
       adminPubkey,
+      authorityPubkey,
       cpammProgram,
       cfxProgram,
       usdxMint,
@@ -175,6 +196,7 @@ export class CoinfxContext {
       cpammFactory,
       fxUsdOracleManager: {
         oracleManager: fxUsdOracleManager,
+        invertQuote: fx[ccy].invertQuote,
         pythOracle: fx[ccy].pyth,
         switchboardAggregator: fx[ccy].switchboard,
       },
@@ -190,6 +212,8 @@ export class CoinfxContext {
       },
       usdxDankSwap: {
         swap: usdxDankSwap,
+        lpMint: usdxDankLpMint,
+        lpTokenAccount: usdxDankLpTokenAccount,
         userPermissions: usdxDankSwapUserPermissions,
         usdxInfo: {
           reserve: usdxDankReserveTokenAccountUsdx,
@@ -202,6 +226,8 @@ export class CoinfxContext {
       },
       usdxCfxSwap: {
         swap: usdxCfxSwap,
+        lpMint: usdxCfxLpMint,
+        lpTokenAccount: usdxCfxLpTokenAccount,
         userPermissions: usdxCfxSwapUserPermissions,
         usdxInfo: {
           reserve: usdxCfxReserveTokenAccountUsdx,
@@ -216,32 +242,52 @@ export class CoinfxContext {
   }
 
   private readConfig(env: Env): Config {
-    const json = JSON.parse(readFileSync(`config/${env}.json`, "utf8"));
-    return this.decodeConfig(json)
+    let config: Config;
+    switch(env) {
+      case "dev":
+        config = this.decodeConfig(devConfig);
+        break;
+      default:
+        throw Error(`Config not located for: ${env}`)
+    }
+
+    return config
   }
 
   private readOracleConfig(env: Env): OracleConfig {
-    const json = JSON.parse(readFileSync(`config/oracles/${env}.json`, "utf8"));
-    return this.decodeOracleConfig(json)
+    let config: OracleConfig;
+    switch(env) {
+      case "dev":
+        config = this.decodeOracleConfig(devOracleConfig);
+        break;
+      default:
+        throw Error(`Oracle Config not located for: ${env}`)
+    }
+
+    return config
   }
 
   private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
     return {
       cluster: json["cluster"],
-      fx: decodeObjectToPubkeys(json["fx"]),
-      usdx: decodeObjectToPubkeys(json["usdx"]),
-      sol: decodeObjectToPubkeys(json["sol"])
+      acceptedDelay: json["acceptedDelay"],
+      fx: decodeOracles(json["fx"]),
+      usdx: decodeOracles(json["usdx"]),
+      sol: decodeOracles(json["sol"]),
     } as OracleConfig
   }
 
   private decodeConfig(json: { [key: string]: any }): Config {
+    const permissionedSwapPubkeys: string[] = json["permissionedSwapPubkeys"];
     return {
       cluster: json["cluster"],
+      permissionedSwapPubkeys: permissionedSwapPubkeys.map((key) => new PublicKey(key)),
       adminPubkey: new PublicKey(json["adminPubkey"]),
+      authorityPubkey: new PublicKey(json["authorityPubkey"]),
       cpammProgram: new PublicKey(json["cpammProgram"]),
       cfxProgram: new PublicKey(json["cfxProgram"]),
       usdxMint: new PublicKey(json["usdxMint"]),
-      sharedDank: json["sharedDank"]
+      sharedDank: json["sharedDank"],
     }
   }
 }
