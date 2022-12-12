@@ -5,6 +5,7 @@
   "authorityPubkey": "7PnMdaJkGYmQytz275oHkxpB3mnXFFfSFKFPqQyaDp3T",
   "cpammProgram": "senEXePgYEdtmTrb3yap5viLs5vVu4cTsTJA7vPGuqW",
   "cfxProgram": "benNzjvWV5pv7pccKfHTgZDmvzxcmbBTJZT2Cmzw2Nu",
-  "usdxMint": "usdx3rKMPDHqrkZ2HUdTEd6GCZjDuyAdp8hS35Qjv8z",
-  "sharedDank": true
+  "usdxMint": "usdxvpXrXHw8WEDrNbj3EPdJaUopvrNDXToCPHSnaEs",
+  "sharedDank": true,
+  "initialUsdxDankLiquidityUsdx": 50000
 }

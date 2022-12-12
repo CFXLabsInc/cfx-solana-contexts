@@ -9,6 +9,7 @@ export interface Config {
   cfxProgram: PublicKey;
   usdxMint: PublicKey;
   sharedDank: boolean;
+  initialUsdxDankLiquidityUsdx: number;
 }
 
 export interface OracleConfig {
@@ -111,113 +112,117 @@ export type Env = "dev" | "pre-prod" | "cust-sandbox" | "prod";
 
 export type SolanaCluster = "devnet" | "mainnet-beta";
 
-export type Currency =
-  | "AED"
-  | "AFN"
-  | "ALL"
-  | "AMD"
-  | "ANG"
-  | "AOA"
-  | "ARS"
-  | "AUD"
-  | "AZN"
-  | "BBD"
-  | "BDT"
-  | "BHD"
-  | "BND"
-  | "BOB"
-  | "BRL"
-  | "BWP"
-  | "BZD"
-  | "CAD"
-  | "CHF"
-  | "CLP"
-  | "CNY"
-  | "COP"
-  | "CRC"
-  | "CZK"
-  | "DJF"
-  | "DKK"
-  | "DOP"
-  | "DZD"
-  | "EGP"
-  | "ETB"
-  | "EUR"
-  | "FJD"
-  | "GBP"
-  | "GEL"
-  | "GHS"
-  | "GMD"
-  | "GNF"
-  | "GTQ"
-  | "HKD"
-  | "HNL"
-  | "HTG"
-  | "HUF"
-  | "IDR"
-  | "ILS"
-  | "INR"
-  | "ISK"
-  | "JMD"
-  | "JOD"
-  | "JPY"
-  | "KES"
-  | "KGS"
-  | "KHR"
-  | "KMF"
-  | "KRW"
-  | "KWD"
-  | "KZT"
-  | "LKR"
-  | "LSL"
-  | "MAD"
-  | "MDL"
-  | "MGA"
-  | "MMK"
-  | "MNT"
-  | "MOP"
-  | "MUR"
-  | "MVR"
-  | "MWK"
-  | "MXN"
-  | "MYR"
-  | "NAD"
-  | "NGN"
-  | "NOK"
-  | "NPR"
-  | "NZD"
-  | "OMR"
-  | "PEN"
-  | "PGK"
-  | "PHP"
-  | "PKR"
-  | "PLN"
-  | "PYG"
-  | "QAR"
-  | "RON"
-  | "RWF"
-  | "SAR"
-  | "SCR"
-  | "SEK"
-  | "SGD"
-  | "STN"
-  | "SVC"
-  | "SZL"
-  | "THB"
-  | "TJS"
-  | "TMT"
-  | "TND"
-  | "TRY"
-  | "TTD"
-  | "TWD"
-  | "TZS"
-  | "UGX"
-  | "USD"
-  | "UYU"
-  | "UZS"
-  | "VND"
-  | "VUV"
-  | "XAF"
-  | "XCD"
-  | "XOF"
-  | "ZAR";
+export const CURRENCIES = [
+   "AED",
+   "AFN",
+   "ALL",
+   "AMD",
+   "ANG",
+   "AOA",
+   "ARS",
+   "AUD",
+   "AZN",
+   "BBD",
+   "BDT",
+   "BHD",
+   "BND",
+   "BOB",
+   "BRL",
+   "BWP",
+   "BZD",
+   "CAD",
+   "CHF",
+   "CLP",
+   "CNY",
+   "COP",
+   "CRC",
+   "CZK",
+   "DJF",
+   "DKK",
+   "DOP",
+   "DZD",
+   "EGP",
+   "ETB",
+   "EUR",
+   "FJD",
+   "GBP",
+   "GEL",
+   "GHS",
+   "GMD",
+   "GNF",
+   "GTQ",
+   "HKD",
+   "HNL",
+   "HTG",
+   "HUF",
+   "IDR",
+   "ILS",
+   "INR",
+   "ISK",
+   "JMD",
+   "JOD",
+   "JPY",
+   "KES",
+   "KGS",
+   "KHR",
+   "KMF",
+   "KRW",
+   "KWD",
+   "KZT",
+   "LKR",
+   "LSL",
+   "MAD",
+   "MDL",
+   "MGA",
+   "MMK",
+   "MNT",
+   "MOP",
+   "MUR",
+   "MVR",
+   "MWK",
+   "MXN",
+   "MYR",
+   "NAD",
+   "NGN",
+   "NOK",
+   "NPR",
+   "NZD",
+   "OMR",
+   "PEN",
+   "PGK",
+   "PHP",
+   "PKR",
+   "PLN",
+   "PYG",
+   "QAR",
+   "RON",
+   "RWF",
+   "SAR",
+   "SCR",
+   "SEK",
+   "SGD",
+   "STN",
+   "SVC",
+   "SZL",
+   "THB",
+   "TJS",
+   "TMT",
+   "TND",
+   "TRY",
+   "TTD",
+   "TWD",
+   "TZS",
+   "UGX",
+   "USD",
+   "UYU",
+   "UZS",
+   "VND",
+   "VUV",
+   "XAF",
+   "XCD",
+   "XOF",
+   "ZAR"
+] as const;
+
+type CurrencyTuple = typeof CURRENCIES;
+export type Currency = CurrencyTuple[number];

@@ -1,6 +1,6 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
-import { SolanaContext, Config, Env, SolanaCluster, OracleConfig, Currency } from "./types";
+import { SolanaContext, Config, Env, SolanaCluster, OracleConfig, Currency, CURRENCIES } from "./types";
 import { decodeOracles } from "./utils";
 import * as Pda from "./pda";
 
@@ -15,7 +15,7 @@ export class CoinfxContext {
 
   constructor(env: Env) {
     this.env = env;
-    this.cluster = this.getCluster(env);
+    this.cluster = env == "prod" ? "mainnet-beta" : "devnet";
     this.config = this.readConfig(env);
     this.oracleConfig = this.readOracleConfig(env);
   }
@@ -28,11 +28,15 @@ export class CoinfxContext {
     return this.oracleConfig;
   }
 
-  public getCluster(env: Env): SolanaCluster {
-    return env == "prod" ? "mainnet-beta" : "devnet"
+  public getCluster(): SolanaCluster {
+    return this.cluster
   }
 
-  public async getContext(ccy: Currency): Promise<SolanaContext> {
+  static parseCurrency(ccy: string): Currency | undefined {
+    return CURRENCIES.includes(ccy as Currency) ? ccy as Currency : undefined
+  }
+
+  public async getContext(_ccy: string): Promise<SolanaContext> {
     const {
       adminPubkey,
       permissionedSwapPubkeys,
@@ -41,9 +45,14 @@ export class CoinfxContext {
       cfxProgram,
       usdxMint,
       sharedDank,
+      initialUsdxDankLiquidityUsdx
     } = this.config;
 
     const { fx, usdx, sol } = this.oracleConfig;
+
+    const ccy = CoinfxContext.parseCurrency(_ccy);
+
+    if(!ccy) throw new Error("Not a valid currency")
 
     // CFX PDA's
 
@@ -169,6 +178,7 @@ export class CoinfxContext {
       cfxProgram,
       usdxMint,
       sharedDank,
+      initialUsdxDankLiquidityUsdx,
       coinfxManager,
       cfxMint,
       dankMint,
@@ -278,7 +288,8 @@ export class CoinfxContext {
       cpammProgram: new PublicKey(json["cpammProgram"]),
       cfxProgram: new PublicKey(json["cfxProgram"]),
       usdxMint: new PublicKey(json["usdxMint"]),
-      sharedDank: json["sharedDank"]
+      sharedDank: json["sharedDank"],
+      initialUsdxDankLiquidityUsdx: json["initialUsdxDankLiquidityUsdx"]
     }
   }
 }
