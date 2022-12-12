@@ -9,11 +9,11 @@ export interface Config {
   cfxProgram: PublicKey;
   usdxMint: PublicKey;
   sharedDank: boolean;
-  initialUsdxDankLiquidityUsdx: number;
 }
 
 export interface OracleConfig {
   cluster: SolanaCluster;
+  acceptedDelay: number;
   usdx: {
     pyth?: PublicKey;
     switchboard?: PublicKey;

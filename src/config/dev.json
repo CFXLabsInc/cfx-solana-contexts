@@ -6,6 +6,5 @@
   "cpammProgram": "senEXePgYEdtmTrb3yap5viLs5vVu4cTsTJA7vPGuqW",
   "cfxProgram": "benNzjvWV5pv7pccKfHTgZDmvzxcmbBTJZT2Cmzw2Nu",
   "usdxMint": "usdxvpXrXHw8WEDrNbj3EPdJaUopvrNDXToCPHSnaEs",
-  "sharedDank": true,
-  "initialUsdxDankLiquidityUsdx": 50000
+  "sharedDank": true
 }

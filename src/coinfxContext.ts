@@ -45,7 +45,6 @@ export class CoinfxContext {
       cfxProgram,
       usdxMint,
       sharedDank,
-      initialUsdxDankLiquidityUsdx
     } = this.config;
 
     const { fx, usdx, sol } = this.oracleConfig;
@@ -178,7 +177,6 @@ export class CoinfxContext {
       cfxProgram,
       usdxMint,
       sharedDank,
-      initialUsdxDankLiquidityUsdx,
       coinfxManager,
       cfxMint,
       dankMint,
@@ -272,6 +270,7 @@ export class CoinfxContext {
   private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
     return {
       cluster: json["cluster"],
+      acceptedDelay: json["acceptedDelay"],
       fx: decodeOracles(json["fx"]),
       usdx: decodeOracles(json["usdx"]),
       sol: decodeOracles(json["sol"]),
@@ -289,7 +288,6 @@ export class CoinfxContext {
       cfxProgram: new PublicKey(json["cfxProgram"]),
       usdxMint: new PublicKey(json["usdxMint"]),
       sharedDank: json["sharedDank"],
-      initialUsdxDankLiquidityUsdx: json["initialUsdxDankLiquidityUsdx"]
     }
   }
 }
