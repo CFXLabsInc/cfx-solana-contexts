@@ -1,0 +1,10 @@
+{
+  "cluster": "mainnet-beta",
+  "permissionedSwapPubkeys": ["6VnfVsLdLwNuuCmooLTziQ99PFXZ5vc3yyqyb9tMDhhw"],
+  "adminPubkey": "A4jpzH1EttpmXuB6FUoqrbKrhhnRf3h1yBdkizoJteSf",
+  "authorityPubkey": "EtXAHeNrDiiznwChdmpUgDxefvD3qjhS8NbSz2dPcER2",
+  "cpammProgram": "",
+  "cfxProgram": "",
+  "usdxMint": "",
+  "sharedDank": true
+}
