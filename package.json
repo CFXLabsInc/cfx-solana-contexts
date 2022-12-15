@@ -20,6 +20,7 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\"",
+    "format": "prettier --write '**/*.{ts,md,yml,js}'",
     "release": "semantic-release"
   },
   "dependencies": {

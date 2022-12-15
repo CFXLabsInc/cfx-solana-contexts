@@ -1,6 +1,14 @@
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
-import { SolanaContext, Config, Env, SolanaCluster, OracleConfig, Currency, CURRENCIES } from "./types";
+import {
+  SolanaContext,
+  Config,
+  Env,
+  SolanaCluster,
+  OracleConfig,
+  Currency,
+  CURRENCIES,
+} from "./types";
 import { decodeOracles } from "./utils";
 import * as Pda from "./pda";
 
@@ -29,11 +37,11 @@ export class CoinfxContext {
   }
 
   public getCluster(): SolanaCluster {
-    return this.cluster
+    return this.cluster;
   }
 
   static parseCurrency(ccy: string): Currency | undefined {
-    return CURRENCIES.includes(ccy as Currency) ? ccy as Currency : undefined
+    return CURRENCIES.includes(ccy as Currency) ? (ccy as Currency) : undefined;
   }
 
   public async getContext(_ccy: string): Promise<SolanaContext> {
@@ -51,10 +59,9 @@ export class CoinfxContext {
 
     const ccy = CoinfxContext.parseCurrency(_ccy);
 
-    if(!ccy) throw new Error("Not a valid currency")
+    if (!ccy) throw new Error("Not a valid currency");
 
     // CFX PDA's
-
     const coinfxManager = await Pda.coinfxManager(ccy, cfxProgram);
     const riskManager = await Pda.riskManager(ccy, cfxProgram);
     const userPermissions = await Pda.managerUserPermissions(
@@ -89,7 +96,7 @@ export class CoinfxContext {
       dankMint,
       cpammProgram
     );
-    const usdxDankLpMint = await Pda.lpMint(usdxMint, dankMint, cpammProgram)
+    const usdxDankLpMint = await Pda.lpMint(usdxMint, dankMint, cpammProgram);
     const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
       adminPubkey,
       usdxDankSwap,
@@ -101,7 +108,7 @@ export class CoinfxContext {
       cfxMint,
       cpammProgram
     );
-    const usdxCfxLpMint = await Pda.lpMint(usdxMint, cfxMint, cpammProgram)
+    const usdxCfxLpMint = await Pda.lpMint(usdxMint, cfxMint, cpammProgram);
     const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(
       adminPubkey,
       usdxCfxSwap,
@@ -163,9 +170,15 @@ export class CoinfxContext {
       true
     );
 
-    const usdxDankLpTokenAccount = await getAssociatedTokenAddress(usdxDankLpMint, adminPubkey);
+    const usdxDankLpTokenAccount = await getAssociatedTokenAddress(
+      usdxDankLpMint,
+      adminPubkey
+    );
 
-    const usdxCfxLpTokenAccount = await getAssociatedTokenAddress(usdxCfxLpMint, adminPubkey);
+    const usdxCfxLpTokenAccount = await getAssociatedTokenAddress(
+      usdxCfxLpMint,
+      adminPubkey
+    );
 
     return {
       cluster: this.cluster,
@@ -243,28 +256,28 @@ export class CoinfxContext {
 
   private readConfig(env: Env): Config {
     let config: Config;
-    switch(env) {
+    switch (env) {
       case "dev":
         config = this.decodeConfig(devConfig);
         break;
       default:
-        throw Error(`Config not located for: ${env}`)
+        throw Error(`Config not located for: ${env}`);
     }
 
-    return config
+    return config;
   }
 
   private readOracleConfig(env: Env): OracleConfig {
     let config: OracleConfig;
-    switch(env) {
+    switch (env) {
       case "dev":
         config = this.decodeOracleConfig(devOracleConfig);
         break;
       default:
-        throw Error(`Oracle Config not located for: ${env}`)
+        throw Error(`Oracle Config not located for: ${env}`);
     }
 
-    return config
+    return config;
   }
 
   private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
@@ -274,20 +287,22 @@ export class CoinfxContext {
       fx: decodeOracles(json["fx"]),
       usdx: decodeOracles(json["usdx"]),
       sol: decodeOracles(json["sol"]),
-    } as OracleConfig
+    } as OracleConfig;
   }
 
   private decodeConfig(json: { [key: string]: any }): Config {
     const permissionedSwapPubkeys: string[] = json["permissionedSwapPubkeys"];
     return {
       cluster: json["cluster"],
-      permissionedSwapPubkeys: permissionedSwapPubkeys.map((key) => new PublicKey(key)),
+      permissionedSwapPubkeys: permissionedSwapPubkeys.map(
+        (key) => new PublicKey(key)
+      ),
       adminPubkey: new PublicKey(json["adminPubkey"]),
       authorityPubkey: new PublicKey(json["authorityPubkey"]),
       cpammProgram: new PublicKey(json["cpammProgram"]),
       cfxProgram: new PublicKey(json["cfxProgram"]),
       usdxMint: new PublicKey(json["usdxMint"]),
       sharedDank: json["sharedDank"],
-    }
+    };
   }
 }

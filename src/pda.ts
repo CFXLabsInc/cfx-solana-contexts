@@ -9,7 +9,6 @@ import {
   SharedDank,
 } from "./seeds";
 import { Currency } from "./types";
-
 export const coinfxManager = async (
   ccy: Currency,
   cfxProgram: PublicKey
@@ -30,7 +29,7 @@ export const managerUserPermissions = async (
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
-    [ccy, UserPermissions, adminPubkey.toBase58()],
+    [ccy, UserPermissions, adminPubkey.toBuffer()],
     cfxProgram
   );
 };
@@ -106,9 +105,16 @@ export const dankMint = async (
   );
 };
 
-export const lpMint = async (token0: PublicKey, token1: PublicKey, cpammProgram: PublicKey): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([token0.toBase58(), token1.toBase58()], cpammProgram)
-}
+export const lpMint = async (
+  token0: PublicKey,
+  token1: PublicKey,
+  cpammProgram: PublicKey
+): Promise<PublicKey> => {
+  return deriveAddressFromSeeds(
+    [token0.toBuffer(), token1.toBuffer()],
+    cpammProgram
+  );
+};
 
 export const dankMintAuthority = async (
   ccy: Currency,
@@ -126,7 +132,7 @@ export const cpammFactory = async (
   cpammProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
-    [Cpamm.FACTORY, creator.toBase58()],
+    [Cpamm.FACTORY, creator.toBuffer()],
     cpammProgram
   );
 };
@@ -138,7 +144,7 @@ export const swapAccount = async (
   cpammProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
-    [Cpamm.SWAPINFO, factory.toBase58(), token0.toBase58(), token1.toBase58()],
+    [Cpamm.SWAPINFO, factory.toBuffer(), token0.toBuffer(), token1.toBuffer()],
     cpammProgram
   );
 };
@@ -149,15 +155,15 @@ export const swapUserPermissions = async (
   cpammProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
-    [UserPermissions, adminPubkey.toBase58(), swapAccount.toBase58()],
+    [UserPermissions, adminPubkey.toBuffer(), swapAccount.toBuffer()],
     cpammProgram
   );
 };
 
 const deriveAddressFromSeeds = async (
-  seeds: string[],
+  seeds: Array<string | Buffer>,
   program: PublicKey
 ): Promise<PublicKey> => {
   const seedBuffers = seeds.map((seed) => Buffer.from(seed));
-  return await PublicKey.findProgramAddress(seedBuffers, program)[0];
+  return (await PublicKey.findProgramAddress(seedBuffers, program))[0];
 };

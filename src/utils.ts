@@ -5,8 +5,8 @@ export const decodeOracles = (json: { [key: string]: any }) => {
   for (const [key, value] of Object.entries(json)) {
     if (value instanceof Object) {
       decodeOracles(value);
-    } else if (key === "invertQuote"){
-      continue
+    } else if (key === "invertQuote") {
+      continue;
     } else {
       json[key] = new PublicKey(value);
     }
