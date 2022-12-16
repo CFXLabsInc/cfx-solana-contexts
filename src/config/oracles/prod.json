@@ -1,0 +1,75 @@
+{
+  "cluster": "mainnet-beta",
+  "acceptedDelay": 100000000,
+  "usdx": {
+    "pyth": "Gnt27xtC473ZT2Mw5u8wZ68Z3gULkSTb5DuxJy7eJotD"
+  },
+  "sol": {
+    "pyth": "H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG"
+  },
+  "fx": {
+    "EUR": {
+      "invertQuote": false,
+      "switchboard": "8m6SnVYohxBzuxN9xvE6XukZQ7BEhN9LRDB9eCxvKvLg",
+      "pyth": "CQzPyC5xVhkuBfWFJiPCvPEnBshmRium4xxUxnX1ober"
+    },
+    "GBP": {
+      "invertQuote": false,
+      "switchboard": "7HsvjPUUijZYXG7ptskbXz5DzxNUu9YhCNKPephY19pF",
+      "pyth": "9wFA8FYZwvBbhE22uvYBZniTXi1KJiN8iNQsegkTWZqS"
+    },
+    "INR": {
+      "invertQuote": true,
+      "switchboard": "E2b5rrY1yUBPPU8eU3GrsFWBKxiQAqw3jNZtVZA1zz6H"
+    },
+    "MXN": {
+      "invertQuote": true,
+      "switchboard": "yw9QHn2YXyfiBoBnmGYfoBWYzu4urs359XkBJBJ3jxK",
+      "pyth": "GAD1XUUU6pU41LZXMbBzbKDT5SGB1nSamFosF2HrX23s"
+    },
+    "NGN": {
+      "invertQuote": true,
+      "switchboard": "HaYPv9KGUjy1uzNBcyhRWMGDF1Su6RiZTt3ULodLTAsL"
+    },
+    "AUD": {
+      "pyth": "7ycfa1ENNT5dVVoMtiMjsgVbkWKFJbu6nF2h1UVT18Cf",
+      "invertQuote": false
+    },
+    "CAD": {
+      "pyth": "4JZWJpMYPvNyADn2BgVwy8Z3zTgXfyWiaV2gvKNda4Hw",
+      "invertQuote": true
+    },
+    "CHF": {
+      "pyth": "kQC7awXFEMX6Kcva1SAgCtEyUEDgg8S1sh2ddoQpwDZ",
+      "invertQuote": true
+    },
+    "CNH": {
+      "pyth": "H5nsUtEotaUYwJ35VBPaxjhvUNxMbWNWxqDDfCQimJZs",
+      "invertQuote": true
+    },
+    "HKD": {
+      "pyth": "2jsfuMCxoU2ZPocj5saqN9yAcqRbPrXqBXtthSbJH58P",
+      "invertQuote": true
+    },
+    "JPY": {
+      "pyth": "H6dt83FavYgfJR8oV7HewKWZjzveFFiDhq41VbmDYnVF",
+      "invertQuote": true
+    },
+    "NZD": {
+      "pyth": "AtZbXC9LFhSPxYikz78CaLUuDZcmweWLY96eRJbzspB8",
+      "invertQuote": false
+    },
+    "RUB": {
+      "pyth": "4BxBpUzojWGF67Mh2dMgydPERxStCcX4xqRD6q8EMYgA",
+      "invertQuote": false
+    },
+    "SGD": {
+      "pyth": "4s8WMC7uCyUsCnrVE6prdRA7G6rY4wu3PcSpoub7Unz3",
+      "invertQuote": false
+    },
+    "ZAR": {
+      "pyth": "4p19xb5BAJaykjbdXwqowmNrYwbSBRSGz5hRm7c7TUBJ",
+      "invertQuote": false
+    }
+  }
+}
