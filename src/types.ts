@@ -13,14 +13,17 @@ export interface Config {
 
 export interface OracleConfig {
   cluster: SolanaCluster;
-  acceptedDelay: number;
+  defaultAcceptedDelay: number;
+  defultAcceptedConf: number;
   usdx: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
+    acceptedConf: number;
   };
   sol: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
+    acceptedConf: number;
   };
   fx: {
     [currency: string]: FxOracle;
@@ -29,6 +32,7 @@ export interface OracleConfig {
 
 export interface FxOracle {
   invertQuote: boolean;
+  acceptedConf?: number,
   pyth?: PublicKey;
   switchboard?: PublicKey;
 }

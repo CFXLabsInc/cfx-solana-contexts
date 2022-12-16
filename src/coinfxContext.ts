@@ -283,7 +283,8 @@ export class CoinfxContext {
   private decodeOracleConfig(json: { [key: string]: any }): OracleConfig {
     return {
       cluster: json["cluster"],
-      acceptedDelay: json["acceptedDelay"],
+      defaultAcceptedDelay: json["defaultAcceptedDelay"],
+      defultAcceptedConf: json["defultAcceptedConf"],
       fx: decodeOracles(json["fx"]),
       usdx: decodeOracles(json["usdx"]),
       sol: decodeOracles(json["sol"]),

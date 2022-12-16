@@ -7,6 +7,8 @@ export const decodeOracles = (json: { [key: string]: any }) => {
       decodeOracles(value);
     } else if (key === "invertQuote") {
       continue;
+    } else if (key == "acceptedConf") {
+      continue
     } else {
       json[key] = new PublicKey(value);
     }
