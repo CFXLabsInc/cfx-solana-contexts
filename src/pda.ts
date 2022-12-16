@@ -7,6 +7,7 @@ import {
   UserPermissions,
   RiskManager,
   SharedDank,
+  Shared,
 } from "./seeds";
 import { Currency } from "./types";
 export const coinfxManager = async (
@@ -39,7 +40,7 @@ export const usdxUsdOracleManager = async (
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
   return deriveAddressFromSeeds(
-    [ccy, ProgramOracleManager.USDXUSD],
+    [Shared, ProgramOracleManager.USDXUSD],
     cfxProgram
   );
 };
@@ -55,7 +56,7 @@ export const solUsdOracleManager = async (
   ccy: Currency,
   cfxProgram: PublicKey
 ): Promise<PublicKey> => {
-  return deriveAddressFromSeeds([ccy, ProgramOracleManager.SOLUSD], cfxProgram);
+  return deriveAddressFromSeeds([Shared, ProgramOracleManager.SOLUSD], cfxProgram);
 };
 
 export const cfxUsdxDa = async (

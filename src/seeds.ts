@@ -4,6 +4,8 @@ export const UserPermissions = "access_control";
 
 export const SharedDank = "shared_dank";
 
+export const Shared = "shared";
+
 export enum Cpamm {
   FACTORY = "Factory",
   SWAPINFO = "SwapInfo",
