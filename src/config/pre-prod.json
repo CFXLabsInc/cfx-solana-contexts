@@ -3,8 +3,8 @@
   "permissionedSwapPubkeys": ["9G8CpubEQxHLM367iH6W7WVFx27krRWLptD8htDtEnXX"],
   "adminPubkey": "7FMcPdJSiuYup8VhVkrNJjEDr9NHJLaLDjsDMaXbYLG1",
   "authorityPubkey": "7PnMdaJkGYmQytz275oHkxpB3mnXFFfSFKFPqQyaDp3T",
-  "cpammProgram": "senUypYHR8ZWnh1Kd8YhKwA9EX8pueSWvQaNb56gjkh",
-  "cfxProgram": "devc2LFQPEV8nd9Q6B5mbXc2aEgEHESNkSviBoigP6M",
+  "cpammProgram": "FffAh23qsQHYdfArhLkuk6hWv5bkLNYMpEDLDzyPdvzm",
+  "cfxProgram": "FbcQujTNDKEfqUKfs47ordjt8gyAuHQ2z4XxHcMV3CUG",
   "usdxMint": "usdxvpXrXHw8WEDrNbj3EPdJaUopvrNDXToCPHSnaEs",
   "sharedDank": true
 }

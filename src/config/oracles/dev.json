@@ -1,10 +1,13 @@
 {
   "cluster": "devnet",
   "acceptedDelay": 100000000,
+  "acceptedConf": 1800000,
   "usdx": {
+    "acceptedConf": 75000,
     "pyth": "5SSkXsEKQepHHAewytPVwdej4epN1nxgLVM84L4KXgy7"
   },
   "sol": {
+    "acceptedConf": 950000,
     "pyth": "J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix"
   },
   "fx": {
@@ -284,6 +287,7 @@
       "switchboard": "5gsrWsNGqSU5bMvxAudcygexd59vAmcZv6GMoxVpm1xX"
     },
     "MXN": {
+      "acceptedConf": 600,
       "invertQuote": true,
       "switchboard": "4UssZ7rt18MAgQEQJV9YnUnb5Naz4gQu66VpqbPKxymM",
       "pyth": "E1n8HR9SLEqp5SxhGg2K5MuYMJNL3rvY8HS2TqvRjWpc"
