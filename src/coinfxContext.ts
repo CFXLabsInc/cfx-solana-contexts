@@ -44,7 +44,7 @@ export class CoinfxContext {
     return CURRENCIES.includes(ccy as Currency) ? (ccy as Currency) : undefined;
   }
 
-  public async getContext(_ccy: string): Promise<SolanaContext> {
+  public async getSolanaContext(_ccy: string): Promise<SolanaContext> {
     const {
       adminPubkey,
       permissionedSwapPubkeys,
