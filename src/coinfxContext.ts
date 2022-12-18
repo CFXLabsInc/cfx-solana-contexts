@@ -1,7 +1,4 @@
-import {
-  getAssociatedTokenAddressSync,
-  getOrCreateAssociatedTokenAccount,
-} from "@solana/spl-token";
+import { getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
 import {
   SolanaContext,
