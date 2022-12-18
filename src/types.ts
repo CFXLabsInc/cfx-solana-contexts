@@ -19,11 +19,13 @@ export interface OracleConfig {
     pyth?: PublicKey;
     switchboard?: PublicKey;
     acceptedConf: number;
+    invertQuote: boolean;
   };
   sol: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
     acceptedConf: number;
+    invertQuote: boolean;
   };
   fx: {
     [currency: string]: FxOracle;
@@ -32,7 +34,7 @@ export interface OracleConfig {
 
 export interface FxOracle {
   invertQuote: boolean;
-  acceptedConf?: number,
+  acceptedConf?: number;
   pyth?: PublicKey;
   switchboard?: PublicKey;
 }
@@ -95,6 +97,7 @@ export interface UsdxDankSwap {
 
 export interface UsdxUsdOracleManager {
   oracleManager: PublicKey;
+  invertQuote: boolean;
   pythOracle?: PublicKey;
   switchboardAggregator?: PublicKey;
 }
@@ -108,6 +111,7 @@ export interface FxUsdOracleManager {
 
 export interface SolUsdOracleManager {
   oracleManager: PublicKey;
+  invertQuote: boolean;
   pythOracle?: PublicKey;
   switchboardAggregator?: PublicKey;
 }

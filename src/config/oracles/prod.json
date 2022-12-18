@@ -2,9 +2,11 @@
   "cluster": "mainnet-beta",
   "acceptedDelay": 100000000,
   "usdx": {
+    "invertQuote": false,
     "pyth": "Gnt27xtC473ZT2Mw5u8wZ68Z3gULkSTb5DuxJy7eJotD"
   },
   "sol": {
+    "invertQuote": false,
     "pyth": "H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG"
   },
   "fx": {

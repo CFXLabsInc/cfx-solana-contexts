@@ -3,10 +3,12 @@
   "acceptedDelay": 100000000,
   "acceptedConf": 1800000,
   "usdx": {
+    "invertQuote": false,
     "acceptedConf": 75000,
     "pyth": "5SSkXsEKQepHHAewytPVwdej4epN1nxgLVM84L4KXgy7"
   },
   "sol": {
+    "invertQuote": false,
     "acceptedConf": 950000,
     "pyth": "J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix"
   },
