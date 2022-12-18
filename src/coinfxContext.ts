@@ -1,4 +1,7 @@
-import { getAssociatedTokenAddress } from "@solana/spl-token";
+import {
+  getAssociatedTokenAddressSync,
+  getOrCreateAssociatedTokenAccount,
+} from "@solana/spl-token";
 import { PublicKey } from "@solana/web3.js";
 import {
   SolanaContext,
@@ -44,7 +47,7 @@ export class CoinfxContext {
     return CURRENCIES.includes(ccy as Currency) ? (ccy as Currency) : undefined;
   }
 
-  public async getSolanaContext(_ccy: string): Promise<SolanaContext> {
+  public getSolanaContext(_ccy: string): SolanaContext {
     const {
       adminPubkey,
       permissionedSwapPubkeys,
@@ -62,26 +65,23 @@ export class CoinfxContext {
     if (!ccy) throw new Error("Not a valid currency");
 
     // CFX PDA's
-    const coinfxManager = await Pda.coinfxManager(ccy, cfxProgram);
-    const riskManager = await Pda.riskManager(ccy, cfxProgram);
-    const userPermissions = await Pda.managerUserPermissions(
+    const coinfxManager = Pda.coinfxManager(ccy, cfxProgram);
+    const riskManager = Pda.riskManager(ccy, cfxProgram);
+    const userPermissions = Pda.managerUserPermissions(
       ccy,
       adminPubkey,
       cfxProgram
     );
-    const usdxUsdOracleManager = await Pda.usdxUsdOracleManager(
-      ccy,
-      cfxProgram
-    );
-    const fxUsdOracleManager = await Pda.fxUsdOracleManager(ccy, cfxProgram);
-    const solUsdOracleManager = await Pda.solUsdOracleManager(ccy, cfxProgram);
-    const cfxUsdxDa = await Pda.cfxUsdxDa(ccy, cfxProgram);
-    const usdxCfxDa = await Pda.usdxCfxDa(ccy, cfxProgram);
-    const dankCfxDa = await Pda.dankCfxDa(ccy, cfxProgram);
-    const usdxDankDa = await Pda.usdxDankDa(ccy, cfxProgram);
-    const cfxMint = await Pda.cfxMint(ccy, cfxProgram);
-    const dankMint = await Pda.dankMint(ccy, cfxProgram, sharedDank);
-    const dankMintAuthority = await Pda.dankMintAuthority(
+    const usdxUsdOracleManager = Pda.usdxUsdOracleManager(ccy, cfxProgram);
+    const fxUsdOracleManager = Pda.fxUsdOracleManager(ccy, cfxProgram);
+    const solUsdOracleManager = Pda.solUsdOracleManager(ccy, cfxProgram);
+    const cfxUsdxDa = Pda.cfxUsdxDa(ccy, cfxProgram);
+    const usdxCfxDa = Pda.usdxCfxDa(ccy, cfxProgram);
+    const dankCfxDa = Pda.dankCfxDa(ccy, cfxProgram);
+    const usdxDankDa = Pda.usdxDankDa(ccy, cfxProgram);
+    const cfxMint = Pda.cfxMint(ccy, cfxProgram);
+    const dankMint = Pda.dankMint(ccy, cfxProgram, sharedDank);
+    const dankMintAuthority = Pda.dankMintAuthority(
       ccy,
       cfxProgram,
       sharedDank
@@ -89,27 +89,27 @@ export class CoinfxContext {
 
     // CPAMM PDA's
 
-    const cpammFactory = await Pda.cpammFactory(adminPubkey, cpammProgram);
-    const usdxDankSwap = await Pda.swapAccount(
+    const cpammFactory = Pda.cpammFactory(adminPubkey, cpammProgram);
+    const usdxDankSwap = Pda.swapAccount(
       cpammFactory,
       usdxMint,
       dankMint,
       cpammProgram
     );
-    const usdxDankLpMint = await Pda.lpMint(usdxMint, dankMint, cpammProgram);
-    const usdxDankSwapUserPermissions = await Pda.swapUserPermissions(
+    const usdxDankLpMint = Pda.lpMint(usdxMint, dankMint, cpammProgram);
+    const usdxDankSwapUserPermissions = Pda.swapUserPermissions(
       adminPubkey,
       usdxDankSwap,
       cpammProgram
     );
-    const usdxCfxSwap = await Pda.swapAccount(
+    const usdxCfxSwap = Pda.swapAccount(
       cpammFactory,
       usdxMint,
       cfxMint,
       cpammProgram
     );
-    const usdxCfxLpMint = await Pda.lpMint(usdxMint, cfxMint, cpammProgram);
-    const usdxCfxSwapUserPermissions = await Pda.swapUserPermissions(
+    const usdxCfxLpMint = Pda.lpMint(usdxMint, cfxMint, cpammProgram);
+    const usdxCfxSwapUserPermissions = Pda.swapUserPermissions(
       adminPubkey,
       usdxCfxSwap,
       cpammProgram
@@ -117,65 +117,62 @@ export class CoinfxContext {
 
     // AssociatedTokenAccounts
 
-    const usdxDankReserveTokenAccountUsdx = await getAssociatedTokenAddress(
+    const usdxDankReserveTokenAccountUsdx = getAssociatedTokenAddressSync(
       usdxMint,
       usdxDankSwap,
       true
     );
 
-    const usdxDankReserveTokenAccountDank = await getAssociatedTokenAddress(
+    const usdxDankReserveTokenAccountDank = getAssociatedTokenAddressSync(
       dankMint,
       usdxDankSwap,
       true
     );
 
-    const usdxCfxReserveTokenAccountUsdx = await getAssociatedTokenAddress(
+    const usdxCfxReserveTokenAccountUsdx = getAssociatedTokenAddressSync(
       usdxMint,
       usdxCfxSwap,
       true
     );
 
-    const usdxCfxReserveTokenAccountCfx = await getAssociatedTokenAddress(
+    const usdxCfxReserveTokenAccountCfx = getAssociatedTokenAddressSync(
       cfxMint,
       usdxCfxSwap,
       true
     );
 
-    const cfxTokenAccount = await getAssociatedTokenAddress(
-      cfxMint,
-      adminPubkey
-    );
-    const usdxTokenAccount = await getAssociatedTokenAddress(
+    const cfxTokenAccount = getAssociatedTokenAddressSync(cfxMint, adminPubkey);
+    const usdxTokenAccount = getAssociatedTokenAddressSync(
       usdxMint,
       adminPubkey
     );
-    const dankTokenAccount = await getAssociatedTokenAddress(
+    const dankTokenAccount = getAssociatedTokenAddressSync(
       dankMint,
       adminPubkey
     );
 
-    const cfxVault = await getAssociatedTokenAddress(
+    const cfxVault = getAssociatedTokenAddressSync(
       cfxMint,
       coinfxManager,
       true
     );
-    const dankVault = await getAssociatedTokenAddress(
+    const dankVault = getAssociatedTokenAddressSync(
       dankMint,
       coinfxManager,
       true
     );
-    const usdxVault = await getAssociatedTokenAddress(
+    const usdxVault = getAssociatedTokenAddressSync(
       usdxMint,
       coinfxManager,
       true
     );
 
-    const usdxDankLpTokenAccount = await getAssociatedTokenAddress(
+    const usdxDankLpTokenAccount = getAssociatedTokenAddressSync(
       usdxDankLpMint,
       adminPubkey
     );
 
-    const usdxCfxLpTokenAccount = await getAssociatedTokenAddress(
+    const usdxCfxLpTokenAccount = getAssociatedTokenAddressSync(
       usdxCfxLpMint,
       adminPubkey
     );
