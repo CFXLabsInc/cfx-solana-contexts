@@ -1,6 +1,7 @@
 {
   "cluster": "mainnet-beta",
-  "acceptedDelay": 100000000,
+  "defaultAcceptedDelay": 100000000,
+  "defaultAcceptedConf": 1800000,
   "usdx": {
     "invertQuote": false,
     "pyth": "Gnt27xtC473ZT2Mw5u8wZ68Z3gULkSTb5DuxJy7eJotD"

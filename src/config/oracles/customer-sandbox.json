@@ -1,6 +1,7 @@
 {
   "cluster": "devnet",
-  "acceptedDelay": 100000000,
+  "defaultAcceptedDelay": 100000000,
+  "defaultAcceptedConf": 1800000,
   "usdx": {
     "invertQuote": false,
     "pyth": "5SSkXsEKQepHHAewytPVwdej4epN1nxgLVM84L4KXgy7"
