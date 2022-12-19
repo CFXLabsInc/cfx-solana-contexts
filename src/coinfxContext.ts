@@ -209,11 +209,13 @@ export class CoinfxContext {
       },
       usdxUsdOracleManager: {
         oracleManager: usdxUsdOracleManager,
+        invertQuote: usdx.invertQuote,
         pythOracle: usdx.pyth,
         switchboardAggregator: usdx.switchboard,
       },
       solUsdOracleManager: {
         oracleManager: solUsdOracleManager,
+        invertQuote: sol.invertQuote,
         pythOracle: sol.pyth,
         switchboardAggregator: sol.switchboard,
       },
