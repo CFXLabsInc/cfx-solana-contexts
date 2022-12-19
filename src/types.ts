@@ -14,7 +14,7 @@ export interface Config {
 export interface OracleConfig {
   cluster: SolanaCluster;
   defaultAcceptedDelay: number;
-  defultAcceptedConf: number;
+  defaultAcceptedConf: number;
   usdx: {
     pyth?: PublicKey;
     switchboard?: PublicKey;
