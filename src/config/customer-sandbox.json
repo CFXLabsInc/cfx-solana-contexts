@@ -1,6 +1,9 @@
 {
   "cluster": "devnet",
-  "permissionedSwapPubkeys": ["9G8CpubEQxHLM367iH6W7WVFx27krRWLptD8htDtEnXX"],
+  "permissionedSwapPubkeys": [
+    "9G8CpubEQxHLM367iH6W7WVFx27krRWLptD8htDtEnXX",
+    "S1GBotyMxdnqB6k4NSNuxceCkpNn2cTR8UvFsmELaFR"
+  ],
   "adminPubkey": "7FMcPdJSiuYup8VhVkrNJjEDr9NHJLaLDjsDMaXbYLG1",
   "authorityPubkey": "7PnMdaJkGYmQytz275oHkxpB3mnXFFfSFKFPqQyaDp3T",
   "cpammProgram": "46d9ZjkKCzKDU4Vwtf4iw4kjh3zzcDLNsBEKXNJQ1gvz",

@@ -1,7 +1,8 @@
 {
   "cluster": "mainnet-beta",
   "permissionedSwapPubkeys": [
-    "6VnfVsLdLwNuuCmooLTziQ99PFXZ5vc3yyqyb9tMDhhw"
+    "6VnfVsLdLwNuuCmooLTziQ99PFXZ5vc3yyqyb9tMDhhw",
+    "4EsznUvYSQ6RfVgZfRyv6BsteWNYY6ah5tSyKDTGZErw"
   ],
   "adminPubkey": "A4jpzH1EttpmXuB6FUoqrbKrhhnRf3h1yBdkizoJteSf",
   "authorityPubkey": "EtXAHeNrDiiznwChdmpUgDxefvD3qjhS8NbSz2dPcER2",
