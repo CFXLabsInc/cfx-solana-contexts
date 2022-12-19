@@ -1,7 +1,7 @@
 {
   "cluster": "devnet",
-  "acceptedDelay": 100000000,
-  "acceptedConf": 1800000,
+  "defaultAcceptedDelay": 100000000,
+  "defaultAcceptedConf": 1800000,
   "usdx": {
     "invertQuote": false,
     "acceptedConf": 75000,
