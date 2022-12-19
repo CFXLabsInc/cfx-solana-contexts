@@ -14,6 +14,12 @@ import * as Pda from "./pda";
 
 import devConfig = require("./config/dev.json");
 import devOracleConfig = require("./config/oracles/dev.json");
+import preProdConfig = require("./config/pre-prod.json");
+import preProdOracleConfig = require("./config/oracles/pre-prod.json");
+import custSandboxConfig = require("./config/customer-sandbox.json");
+import custSandboxOracleConfig = require("./config/oracles/customer-sandbox.json");
+import prodConfig = require("./config/prod.json");
+import prodOracleConfig = require("./config/oracles/prod.json");
 
 export class CoinfxContext {
   public env: Env;
@@ -256,6 +262,15 @@ export class CoinfxContext {
       case "dev":
         config = this.decodeConfig(devConfig);
         break;
+      case "pre-prod":
+        config = this.decodeConfig(preProdConfig);
+        break;
+      case "cust-sandbox":
+        config = this.decodeConfig(custSandboxConfig);
+        break;
+      case "prod":
+        config = this.decodeConfig(prodConfig);
+        break;
       default:
         throw Error(`Config not located for: ${env}`);
     }
@@ -268,6 +283,15 @@ export class CoinfxContext {
     switch (env) {
       case "dev":
         config = this.decodeOracleConfig(devOracleConfig);
+        break;
+      case "pre-prod":
+        config = this.decodeOracleConfig(preProdOracleConfig);
+        break;
+      case "cust-sandbox":
+        config = this.decodeOracleConfig(custSandboxOracleConfig);
+        break;
+      case "prod":
+        config = this.decodeOracleConfig(prodOracleConfig);
         break;
       default:
         throw Error(`Oracle Config not located for: ${env}`);
