@@ -280,7 +280,7 @@ export class CoinfxContext {
     return {
       cluster: json["cluster"],
       defaultAcceptedDelay: json["defaultAcceptedDelay"],
-      defultAcceptedConf: json["defultAcceptedConf"],
+      defaultAcceptedConf: json["defaultAcceptedConf"],
       fx: decodeOracles(json["fx"]),
       usdx: decodeOracles(json["usdx"]),
       sol: decodeOracles(json["sol"]),
