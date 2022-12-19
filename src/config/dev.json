@@ -1,10 +1,13 @@
 {
   "cluster": "devnet",
-  "permissionedSwapPubkeys": ["9G8CpubEQxHLM367iH6W7WVFx27krRWLptD8htDtEnXX"],
+  "permissionedSwapPubkeys": [
+    "9G8CpubEQxHLM367iH6W7WVFx27krRWLptD8htDtEnXX",
+    "S1GBotyMxdnqB6k4NSNuxceCkpNn2cTR8UvFsmELaFR"
+  ],
   "adminPubkey": "7FMcPdJSiuYup8VhVkrNJjEDr9NHJLaLDjsDMaXbYLG1",
   "authorityPubkey": "7PnMdaJkGYmQytz275oHkxpB3mnXFFfSFKFPqQyaDp3T",
-  "cpammProgram": "senUypYHR8ZWnh1Kd8YhKwA9EX8pueSWvQaNb56gjkh",
-  "cfxProgram": "devc2LFQPEV8nd9Q6B5mbXc2aEgEHESNkSviBoigP6M",
+  "cpammProgram": "42KcCvQaSyQJY2wyLYJWpNTWn6JTRAScv4aMgwNm8K3F",
+  "cfxProgram": "AFoHpmXduG2K14BWYmpFWDcnHTWqbF7Ze4K1WQTgZJv2",
   "usdxMint": "usdxvpXrXHw8WEDrNbj3EPdJaUopvrNDXToCPHSnaEs",
   "sharedDank": true
 }
