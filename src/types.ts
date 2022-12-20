@@ -51,7 +51,8 @@ export interface SolanaContext extends Config {
   usdxCfxDa: PublicKey;
   dankCfxDa: PublicKey;
   usdxDankDa: PublicKey;
-  riskManager: PublicKey;
+  riskManagerMint: PublicKey;
+  riskManagerRedeem: PublicKey;
   dankMintAuthority: PublicKey;
   cfxTokenAccount: PublicKey;
   usdxTokenAccount: PublicKey;

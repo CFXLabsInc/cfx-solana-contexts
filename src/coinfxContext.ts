@@ -69,7 +69,8 @@ export class CoinfxContext {
 
     // CFX PDA's
     const coinfxManager = Pda.coinfxManager(ccy, cfxProgram);
-    const riskManager = Pda.riskManager(ccy, cfxProgram);
+    const riskManagerMint = Pda.riskManagerMint(ccy, cfxProgram);
+    const riskManagerRedeem = Pda.riskManagerRedeem(ccy, cfxProgram);
     const userPermissions = Pda.managerUserPermissions(
       ccy,
       adminPubkey,
@@ -200,7 +201,8 @@ export class CoinfxContext {
       usdxCfxDa,
       dankCfxDa,
       usdxDankDa,
-      riskManager,
+      riskManagerMint,
+      riskManagerRedeem,
       dankMintAuthority,
       cfxTokenAccount,
       usdxTokenAccount,

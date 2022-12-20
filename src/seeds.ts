@@ -1,10 +1,13 @@
-export const RiskManager = "risk_mg";
-
 export const UserPermissions = "access_control";
 
 export const SharedDank = "shared_dank";
 
 export const Shared = "shared";
+
+export enum RiskManager {
+  MINT = "risk_mg_mint",
+  REDEEM = "risk_mg_redeem",
+}
 
 export enum Cpamm {
   FACTORY = "Factory",

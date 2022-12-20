@@ -17,11 +17,18 @@ export const coinfxManager = (
   return deriveAddressFromSeeds([ccy], cfxProgram);
 };
 
-export const riskManager = (
+export const riskManagerMint = (
   ccy: Currency,
   cfxProgram: PublicKey
 ): PublicKey => {
-  return deriveAddressFromSeeds([ccy, RiskManager], cfxProgram);
+  return deriveAddressFromSeeds([ccy, RiskManager.MINT], cfxProgram);
+};
+
+export const riskManagerRedeem = (
+  ccy: Currency,
+  cfxProgram: PublicKey
+): PublicKey => {
+  return deriveAddressFromSeeds([ccy, RiskManager.REDEEM], cfxProgram);
 };
 
 export const managerUserPermissions = (
